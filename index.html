@@ -1,21 +1,53 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<script src="./jquery-3.4.1.slim.min.js"></script>
-		<script type="text/javascript" src="./app.js"></script>
-	</head>
+  <head>
+    <script src="./jquery-3.4.1.slim.min.js"></script>
+    <script type="text/javascript" src="./game.js"></script>
+    <script type="text/javascript" src="./index.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <header>
+      <menu>
+        <button onclick="goToWelcome()">Welcome</button>
+        <button onclick="goToGame()">Game</button>
+        <button onclick="goToAbout()">About</button>
+      </menu>
+    </header>
+    <content>
+      <div class="welcomeTab tabContainer activeTab">
+        <h1>Welcome</h1>
+        <div class="loginButtons">
+          <button onclick="goToLogin()">Login</button>
+          <button onclick="goToRegister()">Register</button>
+        </div>
+      </div>
 
-	<body>
-		<div id="score">
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
-		</div>
-		<div id="time">
-			<label for="lblTime">TIME:</label>
-			<input id="lblTime" type="text" />
-		</div>
-		<div id="game">
-			<canvas id="canvas" height="600" width="600"></canvas>
-		</div>
-	</body>
+      <div class="loginTab tabContainer">
+        <h1>login</h1>
+      </div>
+
+      <div class="registerTab tabContainer">
+        <h1>Register</h1>
+      </div>
+
+      <div class="gameTab tabContainer">
+        <div id="score">
+          <label for="lblScore">SCORE:</label>
+          <input id="lblScore" type="text" />
+        </div>
+        <div id="time">
+          <label for="lblTime">TIME:</label>
+          <input id="lblTime" type="text" />
+        </div>
+        <div id="game">
+          <canvas id="canvas" height="600" width="600"></canvas>
+        </div>
+      </div>
+
+      <div class="aboutTab tabContainer">
+        <h1>About</h1>
+      </div>
+    </content>
+  </body>
 </html>
