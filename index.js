@@ -13,6 +13,7 @@ $(document).ready(function () {
 function goToLogin() {
   const loginTab = $(".loginTab");
   switchToTab(loginTab);
+
 }
 
 function goToRegister() {
@@ -27,6 +28,7 @@ function goToWelcome() {
 function goToGame() {
   const registerTab = $(".gameTab");
   switchToTab(registerTab);
+  // updateSettings()
   StartGame();
 }
 
