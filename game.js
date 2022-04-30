@@ -6,6 +6,7 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var pac_direction
 
 // $(document).ready(function() {
 // 	context = canvas.getContext("2d");
@@ -14,6 +15,7 @@ var interval;
 
 function StartGame() {
   context = canvas.getContext("2d");
+
   Start();
 }
 
@@ -41,7 +43,9 @@ function Start() {
         var randomNum = Math.random();
         if (randomNum <= (1.0 * food_remain) / cnt) {
           food_remain--;
-          board[i][j] = 1;
+          // board[i][j] = 1; // TODO: what is it?
+          var randFoodNum = Math.floor(Math.random()*(82-80+1)+80)
+          board[i][j] = randFoodNum;
         } else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
           shape.i = i;
           shape.j = j;
@@ -56,7 +60,8 @@ function Start() {
   }
   while (food_remain > 0) {
     var emptyCell = findRandomEmptyCell(board);
-    board[emptyCell[0]][emptyCell[1]] = 1;
+    var randFoodNum = Math.floor(Math.random()*(82-80+1)+80)
+    board[emptyCell[0]][emptyCell[1]] = randFoodNum;
     food_remain--;
   }
   keysDown = {};
@@ -74,7 +79,7 @@ function Start() {
     },
     false
   );
-  interval = setInterval(UpdatePosition, 160); // changed from 250
+  interval = setInterval(UpdatePosition, 180); // changed from 250
 }
 
 function findRandomEmptyCell(board) {
@@ -88,16 +93,20 @@ function findRandomEmptyCell(board) {
 }
 
 function GetKeyPressed() {
-  if (keysDown[38]) {
+  if (keysDown[38]) { //up
+    pac_direction = "up"
     return 1;
   }
-  if (keysDown[40]) {
+  if (keysDown[40]) { //down
+    pac_direction = "down"
     return 2;
   }
-  if (keysDown[37]) {
+  if (keysDown[37]) { //left
+    pac_direction = "left"
     return 3;
   }
-  if (keysDown[39]) {
+  if (keysDown[39]) { //right
+    pac_direction = "right"
     return 4;
   }
 }
@@ -113,20 +122,69 @@ function Draw() {
       center.y = j * 60 + 30;
       if (board[i][j] == 2) {
         context.beginPath();
-        context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-        context.lineTo(center.x, center.y);
         context.fillStyle = pac_color; //color
+        if(pac_direction === "up"){
+          context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI); // TODO: check
+        }
+
+        else if (pac_direction === "right"){
+          context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); 
+        }
+        
+        else if (pac_direction === "down"){
+          context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI); 
+        }
+
+        else{ // left
+          context.arc(center.x, center.y, 30, 1.15 * Math.PI, 0.85 * Math.PI); 
+        }
+
+        // context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+        context.lineTo(center.x, center.y);
+        
         context.fill();
         context.beginPath();
-        context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-        context.fillStyle = "black"; //color
+        // pacman eyes
+        if(pac_direction === "up"){
+          context.arc(center.x+15, center.y-5, 5,0, 2 * Math.PI); // TODO: check
+        }
+
+        else if (pac_direction === "right"){
+          context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI);
+        }
+        
+        else if (pac_direction === "down"){
+          context.arc(center.x-15, center.y+5, 5, 0, 2 * Math.PI);
+        }
+
+        else{ // left
+          context.arc(center.x-5, center.y-15, 5, 0, 2 * Math.PI); 
+        }
+
+        // context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+        context.fillStyle = "black"; // eye color
         context.fill();
-      } else if (board[i][j] == 1) {
+      } 
+      //else if (board[i][j] == 1) {
+      //   context.beginPath();
+      //   context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+      //   context.fillStyle = "black"; //color
+      //   context.fill();} 
+      else if (board[i][j] == 80) {
         context.beginPath();
         context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
-        context.fillStyle = "black"; //color
-        context.fill();
-      } else if (board[i][j] == 4) {
+        context.fillStyle = "green"; //5
+        context.fill();}
+        else if (board[i][j] == 81) {
+          context.beginPath();
+          context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+          context.fillStyle = "orange"; //15
+          context.fill();}      else if (board[i][j] == 82) {
+            context.beginPath();
+            context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
+            context.fillStyle = "red"; //25
+            context.fill();}
+      else if (board[i][j] == 4) {
         context.beginPath();
         context.rect(center.x - 30, center.y - 30, 60, 60);
         context.fillStyle = "grey"; //color
@@ -159,8 +217,16 @@ function UpdatePosition() {
       shape.i++;
     }
   }
-  if (board[shape.i][shape.j] == 1) {
-    score++;
+  // if (board[shape.i][shape.j] == 1) { 
+  // score +=1;}
+  if (board[shape.i][shape.j] == 80) { // +5
+    score += 5;
+  }
+  if (board[shape.i][shape.j] == 81) { // +15
+    score +=15;
+  }
+  if (board[shape.i][shape.j] == 82) { // +25
+    score +=25;
   }
   board[shape.i][shape.j] = 2;
   var currentTime = new Date();
@@ -168,7 +234,7 @@ function UpdatePosition() {
   if (score >= 20 && time_elapsed <= 10) {
     pac_color = "green";
   }
-  if (score == 50) {
+  if (score == 200) {
     window.clearInterval(interval);
     window.alert("Game completed");
   } else {
