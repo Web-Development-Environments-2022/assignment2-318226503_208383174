@@ -6,7 +6,14 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
-var pac_direction
+var moving_50_interval;
+var pac_direction;
+var moving_50 = new Object();
+//nums in board
+var num_5_points = 80;
+var num_15_points =81;
+var num_25_points = 82;
+var num_50_points =50;
 
 // $(document).ready(function() {
 // 	context = canvas.getContext("2d");
@@ -36,15 +43,22 @@ function Start() {
         (i == 3 && j == 4) ||
         (i == 3 && j == 5) ||
         (i == 6 && j == 1) ||
-        (i == 6 && j == 2)
+        (i == 6 && j == 2)||
+        (i == 1 && j == 8) ||
+        (i == 2 && j == 8)
       ) {
         board[i][j] = 4;
-      } else {
+      } 
+      else if (i==1 && j==1){ //TODO: check if ok
+        board[i][j] = 50 ;
+        moving_50.i = i;
+        moving_50.j = j;     
+      }else {
         var randomNum = Math.random();
         if (randomNum <= (1.0 * food_remain) / cnt) {
           food_remain--;
           // board[i][j] = 1; // TODO: what is it?
-          var randFoodNum = Math.floor(Math.random()*(82-80+1)+80)
+          var randFoodNum = Math.floor(Math.random()*(num_25_points-num_5_points+1)+num_5_points)
           board[i][j] = randFoodNum;
         } else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
           shape.i = i;
@@ -60,7 +74,7 @@ function Start() {
   }
   while (food_remain > 0) {
     var emptyCell = findRandomEmptyCell(board);
-    var randFoodNum = Math.floor(Math.random()*(82-80+1)+80)
+    var randFoodNum = Math.floor(Math.random()*(num_25_points-num_5_points+1)+num_5_points)
     board[emptyCell[0]][emptyCell[1]] = randFoodNum;
     food_remain--;
   }
@@ -79,7 +93,8 @@ function Start() {
     },
     false
   );
-  interval = setInterval(UpdatePosition, 180); // changed from 250
+  interval = setInterval(UpdatePosition, 90); // changed from 250
+  moving_50_interval = setInterval(is_moving_50, 900);
 }
 
 function findRandomEmptyCell(board) {
@@ -170,16 +185,17 @@ function Draw() {
       //   context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
       //   context.fillStyle = "black"; //color
       //   context.fill();} 
-      else if (board[i][j] == 80) {
+      else if (board[i][j] == num_5_points) {
         context.beginPath();
         context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
         context.fillStyle = "green"; //5
         context.fill();}
-        else if (board[i][j] == 81) {
+        else if (board[i][j] == num_15_points) {
           context.beginPath();
           context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
           context.fillStyle = "orange"; //15
-          context.fill();}      else if (board[i][j] == 82) {
+          context.fill();}      
+          else if (board[i][j] == num_25_points) {
             context.beginPath();
             context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
             context.fillStyle = "red"; //25
@@ -189,6 +205,17 @@ function Draw() {
         context.rect(center.x - 30, center.y - 30, 60, 60);
         context.fillStyle = "grey"; //color
         context.fill();
+      }
+      else if(board[i][j]==num_50_points){
+        var moving_50_pic = new Image;
+        moving_50_pic.src = "./fifty.jpg";
+        context.beginPath()
+        context.drawImage(moving_50_pic,center.x-30,center.y-30,55,55*(moving_50_pic.height/moving_50_pic.width))
+        // context.beginPath();
+        // context.arc(center.x, center.y, 20, 0, 2 * Math.PI);
+        // context.fillStyle = "pink"; //color
+        // context.fill();
+        
       }
     }
   }
@@ -219,25 +246,110 @@ function UpdatePosition() {
   }
   // if (board[shape.i][shape.j] == 1) { 
   // score +=1;}
-  if (board[shape.i][shape.j] == 80) { // +5
+  if (board[shape.i][shape.j] == num_5_points) { // +5
     score += 5;
   }
-  if (board[shape.i][shape.j] == 81) { // +15
+  if (board[shape.i][shape.j] == num_15_points) { // +15
     score +=15;
   }
-  if (board[shape.i][shape.j] == 82) { // +25
+  if (board[shape.i][shape.j] == num_25_points) { // +25
     score +=25;
+  }
+  if (board[shape.i][shape.j] == num_50_points) { // +50
+    score +=50;
+    window.clearInterval(moving_50_interval)
   }
   board[shape.i][shape.j] = 2;
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time) / 1000;
-  if (score >= 20 && time_elapsed <= 10) {
+  if (score >= 100 && time_elapsed <= 10) {
     pac_color = "green";
   }
-  if (score == 200) {
+  if (score >= 100) {
     window.clearInterval(interval);
+    window.clearInterval(moving_50_interval)
     window.alert("Game completed");
   } else {
     Draw();
   }
+}
+
+function is_moving_50(){
+  
+  console.log([moving_50.i,moving_50.j])
+  var possiable_50_moves_ = available_50_move(moving_50.i,moving_50.j);
+  console.log("the value of possiable_50_moves_ is: ")
+  console.log(possiable_50_moves_)
+  if(possiable_50_moves_.length==0){
+    return;
+  }
+  var rand_50_move =Math.floor(Math.random()*possiable_50_moves_.length) ;
+  console.log("the value of rand_50_move is "+rand_50_move)
+  if (rand_50_move == 0) {
+      board[moving_50.i][moving_50.j] = 0;
+      moving_50.i = possiable_50_moves_[0][0];
+      moving_50.j = possiable_50_moves_[0][1];
+  }
+  if (rand_50_move == 1) {
+    board[moving_50.i][moving_50.j] = 0;
+    moving_50.i = possiable_50_moves_[1][0];
+    moving_50.j = possiable_50_moves_[1][1];
+  }
+  if (rand_50_move == 2) {
+    board[moving_50.i][moving_50.j] = 0;
+    moving_50.i = possiable_50_moves_[2][0];
+    moving_50.j = possiable_50_moves_[2][1];
+  }
+  if (rand_50_move == 3) {
+    board[moving_50.i][moving_50.j] = 0;
+    moving_50.i = possiable_50_moves_[3][0];
+    moving_50.j = possiable_50_moves_[3][1];
+  }
+
+  console.log("the value of new [moving_50.i,moving_50.j] is "+[moving_50.i,moving_50.j])
+  board[moving_50.i][moving_50.j]=num_50_points;
+
+}
+
+function available_50_move(x,y){
+  var possiable_50_moves =new Array();
+  var good_left ;
+  var good_right;
+  var good_up;
+  var good_down;
+  console.log("the value of x,y is "+[x,y])
+  var nums = [2,4,num_5_points,num_15_points,num_25_points];
+  if(y>0 ){
+    good_left =  nums.includes(board[x][y-1]);
+    console.log("the value of left is "+board[x][y-1])
+    if (!good_left){
+      console.log("the value of good_left is "+good_left)
+      possiable_50_moves.push([x,y-1])
+    }
+  }
+  if(y<9){
+    good_right =   nums.includes(board[x][y+1]);
+    console.log("the value of right is "+board[x][y+1])
+    if(!good_right){
+      console.log("the value of good_right is "+good_right)
+      possiable_50_moves.push([x,y+1])
+    }
+  }
+  if(x>0){
+    good_up = nums.includes(board[x-1][y]);
+    console.log("the value of up is "+board[x-1][y])
+    if(!good_up){
+      console.log("the value of good_up is "+good_up)
+      possiable_50_moves.push([x-1,y])
+    }
+  }
+  if(x<9){
+    good_down = nums.includes(board[x+1][y]);
+    console.log("the value of down is "+board[x+1][y])
+    if(!good_down){
+      console.log("the value of good_down is "+good_down)
+      possiable_50_moves.push([x+1,y])
+    }
+  }
+  return possiable_50_moves;
 }

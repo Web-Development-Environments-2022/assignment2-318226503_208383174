@@ -28,7 +28,6 @@ function goToWelcome() {
 function goToGame() {
   const registerTab = $(".gameTab");
   switchToTab(registerTab);
-  // updateSettings()
   StartGame();
 }
 
@@ -36,6 +35,7 @@ function goToAbout() {
   const registerTab = $(".aboutTab");
   switchToTab(registerTab);
 }
+
 
 function switchToTab(newTab) {
   $(".tabContainer").removeClass("activeTab");
