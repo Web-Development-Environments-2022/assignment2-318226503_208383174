@@ -12,12 +12,15 @@ var special_candy_interval;
 var pac_direction;
 var moving_50 = new Object();
 var special_candy = new Object();
+
 //nums in board
 var num_5_points = 80;
 var num_15_points = 81;
 var num_25_points = 82;
 var num_50_points = 50;
 var num_special_candy = 40;
+
+//monsters
 var monsters_locations;
 var monsters_remain;
 const monster = 5;
