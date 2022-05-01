@@ -7,13 +7,16 @@ var start_time;
 var time_elapsed;
 var interval;
 var moving_50_interval;
+var special_candy_interval;
 var pac_direction;
 var moving_50 = new Object();
+var special_candy = new Object();
 //nums in board
 var num_5_points = 80;
 var num_15_points =81;
 var num_25_points = 82;
 var num_50_points =50;
+var num_special_candy = 40;
 
 // $(document).ready(function() {
 // 	context = canvas.getContext("2d");
@@ -57,7 +60,6 @@ function Start() {
         var randomNum = Math.random();
         if (randomNum <= (1.0 * food_remain) / cnt) {
           food_remain--;
-          // board[i][j] = 1; // TODO: what is it?
           var randFoodNum = Math.floor(Math.random()*(num_25_points-num_5_points+1)+num_5_points)
           board[i][j] = randFoodNum;
         } else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
@@ -93,8 +95,12 @@ function Start() {
     },
     false
   );
+  var emptyCell_2 = findRandomEmptyCell(board);
+  special_candy.i = emptyCell_2[0];
+  special_candy.j = emptyCell_2[1];
   interval = setInterval(UpdatePosition, 90); // changed from 250
   moving_50_interval = setInterval(is_moving_50, 900);
+  special_candy_interval = setInterval(update_special_candy,3000);
 }
 
 function findRandomEmptyCell(board) {
@@ -130,6 +136,8 @@ function Draw() {
   canvas.width = canvas.width; //clean board
   lblScore.value = score;
   lblTime.value = time_elapsed;
+  context.fillStyle = "black";
+  context.fillRect(0,0,canvas.width,canvas.height);
   for (var i = 0; i < 10; i++) {
     for (var j = 0; j < 10; j++) {
       var center = new Object();
@@ -214,8 +222,13 @@ function Draw() {
         // context.beginPath();
         // context.arc(center.x, center.y, 20, 0, 2 * Math.PI);
         // context.fillStyle = "pink"; //color
-        // context.fill();
-        
+        // context.fill(); 
+      }
+      else if(board[i][j] == num_special_candy){
+        var special_candy_pic = new Image;
+        special_candy_pic.src = "./special_candy_2.png";
+        context.beginPath()
+        context.drawImage(special_candy_pic,center.x-30,center.y-30,55,55*(special_candy_pic.height/special_candy_pic.width))
       }
     }
   }
@@ -259,15 +272,19 @@ function UpdatePosition() {
     score +=50;
     window.clearInterval(moving_50_interval)
   }
+  if (board[shape.i][shape.j] == num_special_candy) { // special candy points
+    score +=40;
+  }
   board[shape.i][shape.j] = 2;
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time) / 1000;
-  if (score >= 100 && time_elapsed <= 10) {
-    pac_color = "green";
-  }
-  if (score >= 100) {
+  // if (score >= 100 && time_elapsed <= 10) {
+  //   pac_color = "green";
+  // }
+  if (score >= 500) {
     window.clearInterval(interval);
     window.clearInterval(moving_50_interval)
+    window.clearInterval(special_candy_interval)
     window.alert("Game completed");
   } else {
     Draw();
@@ -352,4 +369,12 @@ function available_50_move(x,y){
     }
   }
   return possiable_50_moves;
+}
+
+function update_special_candy(){
+  var empty_cell_for_special_candy = findRandomEmptyCell(board);
+  board[special_candy.i][special_candy.j] = 0;
+  special_candy.i = empty_cell_for_special_candy[0];
+  special_candy.j = empty_cell_for_special_candy[1];
+  board[special_candy.i][special_candy.j] = num_special_candy;
 }
