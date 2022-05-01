@@ -17,16 +17,6 @@ var monsters_start_locations;
 // paths
 special_candy_path = "resources/special_candy_2.png";
 fifty_points_path = "resources/fifty.jpg";
-red_monster_right = "resources/ghosts/red right.png";
-red_monster_left = "resources/ghosts/red left.png";
-red_monster_up = "resources/ghosts/red up.png";
-red_monster_down = "resources/ghosts/red down.png";
-var redMovment = [
-  red_monster_up,
-  red_monster_right,
-  red_monster_down,
-  red_monster_left,
-];
 
 //nums in board
 const num_5_points = 80;
@@ -34,14 +24,15 @@ const num_15_points = 81;
 const num_25_points = 82;
 const num_50_points = 83;
 const num_special_candy = 40;
-const food_types = [
+const obstacles_to_ignore = [
   num_5_points,
   num_15_points,
   num_25_points,
   num_50_points,
   num_special_candy,
 ];
-const food_size = 5;
+const food_size = 8;
+const packman_size = 25;
 
 //monsters
 var monsters_locations;
@@ -221,14 +212,38 @@ function Draw() {
         context.beginPath();
         context.fillStyle = pac_color; //color
         if (pac_direction === "up") {
-          context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI); // TODO: check
+          context.arc(
+            center.x,
+            center.y,
+            packman_size,
+            1.65 * Math.PI,
+            1.35 * Math.PI
+          ); // TODO: check
         } else if (pac_direction === "right") {
-          context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI);
+          context.arc(
+            center.x,
+            center.y,
+            packman_size,
+            0.15 * Math.PI,
+            1.85 * Math.PI
+          );
         } else if (pac_direction === "down") {
-          context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI);
+          context.arc(
+            center.x,
+            center.y,
+            packman_size,
+            0.65 * Math.PI,
+            0.35 * Math.PI
+          );
         } else {
           // left
-          context.arc(center.x, center.y, 30, 1.15 * Math.PI, 0.85 * Math.PI);
+          context.arc(
+            center.x,
+            center.y,
+            packman_size,
+            1.15 * Math.PI,
+            0.85 * Math.PI
+          );
         }
         context.lineTo(center.x, center.y);
 
@@ -250,22 +265,26 @@ function Draw() {
         context.fill();
       } else if (board[i][j] == 0) {
         context.clearRect(center.x, center.y, 0, 1.85 * Math.PI);
-      } else if (board[i][j] == monster || board[i][j] < 0) {
-        drawGhost();
       }
 
-      // // - monster -
-      // else if (board[i][j] == monster || board[i][j] < 0) {
-      //   context.beginPath();
-      //   context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-      //   context.lineTo(center.x, center.y);
-      //   context.fillStyle = "blue"; //color
-      //   context.fill();
-      //   context.beginPath();
-      //   context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-      //   context.fillStyle = "white"; //color
-      //   context.fill();
-      // }
+      // - monster -
+      else if (board[i][j] == monster || board[i][j] < 0) {
+        context.beginPath();
+        context.arc(
+          center.x,
+          center.y,
+          packman_size,
+          0.15 * Math.PI,
+          1.85 * Math.PI
+        ); // half circle
+        context.lineTo(center.x, center.y);
+        context.fillStyle = "blue"; //color
+        context.fill();
+        context.beginPath();
+        context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+        context.fillStyle = "white"; //color
+        context.fill();
+      }
 
       // - food -
       else if (board[i][j] == num_5_points) {
@@ -299,10 +318,6 @@ function Draw() {
           55,
           55 * (moving_50_pic.height / moving_50_pic.width)
         );
-        // context.beginPath();
-        // context.arc(center.x, center.y, 20, 0, 2 * Math.PI);
-        // context.fillStyle = "pink"; //color
-        // context.fill();
       } else if (board[i][j] == num_special_candy) {
         var special_candy_pic = new Image();
         special_candy_pic.src = special_candy_path;
@@ -320,7 +335,6 @@ function Draw() {
 }
 
 function UpdatePosition() {
-  // updateEnemyPosition();
   board[shape.i][shape.j] = 0;
   var x = GetKeyPressed();
   if (x == 1) {
@@ -348,7 +362,6 @@ function UpdatePosition() {
     eatenByMonster();
   }
 
-  // if (board[shape.i][shape.j] == 1) {
   // score +=1;}
   if (board[shape.i][shape.j] == num_5_points) {
     // +5
@@ -374,9 +387,7 @@ function UpdatePosition() {
   board[shape.i][shape.j] = 2;
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time) / 1000;
-  // if (score >= 100 && time_elapsed <= 10) {
-  //   pac_color = "green";
-  // }
+
   if (score >= 500) {
     stopInterval();
     window.alert("Game completed");
@@ -488,7 +499,7 @@ function updateEnemyPosition() {
     // trying to get the best move without hitting a wall
     var move_result;
 
-    if (x_dist > y_dist || y_dist <= 1) {
+    if (x_dist > y_dist) {
       // should move horizontaly
       move_result = move_horizontaly_monster(x, y, i);
       if (move_result == false) {
@@ -538,15 +549,11 @@ function move_diagonally_monster(x, y, i) {
 function move_monster(new_location, i) {
   var new_x = new_location[0];
   var new_y = new_location[1];
-  if (
-    board[new_x][new_y] == 4 ||
-    board[new_x][new_y] == num_special_candy ||
-    board[new_x][new_y] == monster
-  ) {
+  if (board[new_x][new_y] == 4 || board[new_x][new_y] == monster) {
     return false;
   }
-  // is food
-  if (food_types.includes(board[new_x][new_y]) == true) {
+  // is obstacle
+  if (obstacles_to_ignore.includes(board[new_x][new_y]) == true) {
     // there is food in the spot
     board[new_x][new_y] = -1 * board[new_x][new_y]; // was food- now monster
   } else if (board[new_x][new_y] == 2) {
@@ -575,6 +582,12 @@ function eatenByMonster() {
 
 function restart() {
   debugger;
+
+  // restart packman
+  var emptyCell = findRandomEmptyCell(board);
+  board[shape.i][shape.j] = 0;
+
+  // restart monsters
   for (var i = 0; i < monsters_remain; i++) {
     // clearing the current positon of the monsters
     var current_location = monsters_locations[i];
@@ -588,6 +601,11 @@ function restart() {
     board[start_x][start_y] = monster;
     monsters_locations[i] = [start_x, start_y];
   }
+
+  shape.i = emptyCell[0];
+  shape.j = emptyCell[1];
+  board[emptyCell[0]][emptyCell[1]] = 2;
+
   startInterval();
 }
 
@@ -603,20 +621,4 @@ function startInterval() {
   moving_50_interval = setInterval(is_moving_50, 900);
   special_candy_interval = setInterval(update_special_candy, 3000);
   enemy_interval = setInterval(updateEnemyPosition, 500);
-}
-
-function drawGhost() {
-  base_image = new Image();
-  base_image.src = red_monster_down;
-  // base_image.onload = function () {
-  // context.drawImage(base_image, 0, 0);
-  // };
-  context.beginPath();
-  context.drawImage(
-    base_image,
-    center.x - 30,
-    center.y - 30,
-    55,
-    55 * (base_image.height / base_image.width)
-  );
 }
