@@ -14,8 +14,8 @@ var moving_50 = new Object();
 var special_candy = new Object();
 var monsters_start_locations;
 var monsters_last_movment;
-const num_of_rows = 10;
-const num_of_cols = 10;
+const num_of_rows = 15;
+const num_of_cols = 15;
 
 // paths
 special_candy_path = "resources/special_candy_2.png";
@@ -389,7 +389,7 @@ function Draw() {
             movment = monsters_last_movment[2];
             monster_movment += 20 + movment;
             // orange
-          } else if (monster_value > -10000) {
+          } else {
             movment = monsters_last_movment[3];
             monster_movment += 30 + movment;
           }
