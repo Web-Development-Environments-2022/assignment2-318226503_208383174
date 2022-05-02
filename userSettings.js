@@ -1,5 +1,13 @@
 function startSettings(){
 
+    // update_upKey();
+    // update_downKey();
+    // update_leftKey();
+    // update_rightKey();
+    updateFoodNum();
+    //remove
+    // update_allKeys();
+
     }
 
 
@@ -11,6 +19,7 @@ function update_upKey() {
 		$(document).unbind()
 	});
     console.log("up key is "+user_upKey)
+
 }
 
 function update_downKey() {
@@ -46,4 +55,9 @@ function update_allKeys(){
     console.log("left key is "+user_leftKey);
     console.log("right key is "+user_rightKey);
 
+}
+function updateFoodNum(){
+    // document.getElementById('num_of_food').value='';
+    food_remain = document.getElementById('num_of_food').value;
+    // console.log("number of food is: "+food_remain);
 }

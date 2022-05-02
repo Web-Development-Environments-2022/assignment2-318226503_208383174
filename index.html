@@ -42,6 +42,10 @@
           <label for="lblTime">TIME:</label>
           <input id="lblTime" type="text" />
         </div>
+        <div id="lives" >
+          <label for="lblLives">Lives:</label>
+          <input id="lblLives" type="text" />
+        </div>
         <div id="game">
           <canvas id="canvas" height="600" width="600"></canvas>
 
@@ -61,7 +65,7 @@
               <h2>Choose your navigation keys</h2>
               <div >
                 <h3>Choose up key:</h3>
-                <input type="button" id="upKey" onfocus="user_upKey = update_upKey()" value="first click, then press your wanted button" />
+                <input type="button" id="upKey" onfocus="user_upKey = update_upKey()" value="first click, then press your wanted button"/>
               </div>
               <div >
                 <h3>Choose down key:</h3>
@@ -75,11 +79,49 @@
                 <h3>Choose right key:</h3>
                 <input type="button" id="rightKey" onfocus="user_rightKey = update_rightKey()" value="first click, then press your wanted button" />
               </div>
-              <div >
+              <!-- REMOVE-->
+              <!-- <div >
                 <h3>Update Keys</h3>
-                <input type="button" id="upDateKeys" onfocus="update_allKeys()" value="only for check" />
-              </div>
+                <input type="button" id="upDateKeys" onfocus="update_allKeys()" value="Update" style="color: Red;" />
+              </div> -->
+              <!--REMOVE -->
+            </br>
             </div>
+            <div class = "item">
+              <h2>Choose number of food(balls):</h2>
+              <h3> (min 50 , max 90)</h3>
+              <input id="num_of_food" type="text"/>
+            </div>
+          </br>
+          <div class = "item">
+            <h2>Choose colors:</h2>
+            <h2>Color for the 5 points:</h2>
+            <select id="user_color_5p" >
+              <option value="" style="color: green;"><b>green</b></option>
+              <option value="1" style="color: blue;"><b>blue</b></option>
+              <option value="2" style="color: pink;"><b>pink</b></option>
+              <option value="3" style="color: orange;"><b>orange</b></option>
+            </select>
+            <h2>Color for the 15 points:</h2>
+            <select id="user_color_15p" >
+              <option value="" style="color: green;"><b>green</b></option>
+              <option value="1" style="color: blue;"><b>blue</b></option>
+              <option value="2" style="color: pink;"><b>pink</b></option>
+              <option value="3" style="color: orange;"><b>orange</b></option>
+            </select>
+            <h2>Color for the 25 points:</h2>
+            <select id="user_color_25p" >
+              <option value="" style="color: green;"><b>green</b></option>
+              <option value="1" style="color: blue;"><b>blue</b></option>
+              <option value="2" style="color: pink;"><b>pink</b></option>
+              <option value="3" style="color: orange;"><b>orange</b></option>
+            </select>
+          </div>
+        </br>
+        <div class="set_settings">
+          <!--change to submit-->
+          <button type="button" onclick="startSettings()">Save Settings</button>
+        </div>
              </form>
         </div>
       </div>
