@@ -34,16 +34,24 @@
       </div>
 
       <div class="gameTab tabContainer">
-        <div id="score">
+        <div id="score" class="inlineDiv">
           <label for="lblScore">SCORE:</label>
           <input id="lblScore" type="text" />
         </div>
-        <div id="time">
+        <div id="time" class="inlineDiv">
           <label for="lblTime">TIME:</label>
           <input id="lblTime" type="text" />
         </div>
+        <div id="lives" class="inlineDiv">
+          <label for="lblLives">Lives:</label>
+          <input id="lblLives" type="text" />
+        </div>
         <div id="game">
-          <canvas id="canvas" height="600" width="600"></canvas>
+          <div class="canvasContainer inlineDiv" height="600" width="600">
+            <div id="youDied"></div>
+            <canvas id="canvas" height="600" width="600"></canvas>
+            <!-- Size of board -->
+          </div>
         </div>
       </div>
       <div class="aboutTab tabContainer">

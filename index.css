@@ -5,6 +5,30 @@
   display: block;
 }
 
+.inlineDiv {
+  display: inline-block;
+}
+
+.inlineDiv input {
+  width: 100px;
+}
+div#game,
+.canvasContainer {
+  position: relative;
+}
+div#youDied {
+  display: none;
+  background-color: black;
+  opacity: 0.4;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+div#youDied.active {
+  display: block;
+}
 /* ****** REMOVE? ****** */
 .testbox {
   display: flex;
@@ -12,22 +36,19 @@
   align-items: center;
   height: inherit;
   padding: 20px;
-  }
+}
 
-  .banner {
-    position: relative;
-    height: 230px;
-    width: 800px;
-    background-color: bisque;  
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    }
-
-
-
+.banner {
+  position: relative;
+  height: 230px;
+  width: 800px;
+  background-color: bisque;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
 /* html, body {
   min-height: 100%;
