@@ -39,6 +39,15 @@ var monsters_locations;
 var monsters_remain;
 const monster = 5;
 
+// user keys
+var user_upKey;
+var user_downKey;
+var user_leftKey;
+var user_rightKey;
+
+// TODO: CHECK
+var lblLives = new Object();
+
 function StartGame() {
   context = canvas.getContext("2d");
 
@@ -91,7 +100,7 @@ function Start() {
           board[i][j] = 4;
         } else if (i == 1 && j == 1) {
           //TODO: check if ok
-          board[i][j] = 50;
+          board[i][j] = num_50_points;
           moving_50.i = i;
           moving_50.j = j;
         } else {
@@ -111,11 +120,9 @@ function Start() {
             var randomNum = Math.random();
             if (randomNum <= (1.0 * food_remain) / cnt) {
               food_remain--;
-              board[i][j] = 1;
-            } else if (
-              randomNum <
-              (1.0 * (pacman_remain + food_remain)) / cnt
-            ) {
+              var randFoodNum = Math.floor(Math.random()*(num_25_points-num_5_points+1)+num_5_points) //TODO: change
+              board[i][j] = randFoodNum;
+            } else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
               shape.i = i;
               shape.j = j;
               pacman_remain--;
@@ -139,18 +146,33 @@ function Start() {
   }
 
   // -- Keypressed --
+  // keysDown = {};
+  // addEventListener(
+  //   "keydown",
+  //   function (e) {
+  //     keysDown[e.keyCode] = true;
+  //   },
+  //   false
+  // );
+  // addEventListener(
+  //   "keyup",
+  //   function (e) {
+  //     keysDown[e.keyCode] = false;
+  //   },
+  //   false
+  // );
   keysDown = {};
   addEventListener(
     "keydown",
     function (e) {
-      keysDown[e.keyCode] = true;
+      keysDown[e.key] = true;
     },
     false
   );
   addEventListener(
     "keyup",
     function (e) {
-      keysDown[e.keyCode] = false;
+      keysDown[e.key] = false;
     },
     false
   );
@@ -170,23 +192,45 @@ function findRandomEmptyCell(board) {
   return [i, j];
 }
 
+// function GetKeyPressed() {
+//   if (keysDown[38]) {
+//     //up
+//     pac_direction = "up";
+//     return 1;
+//   }
+//   if (keysDown[40]) {
+//     //down
+//     pac_direction = "down";
+//     return 2;
+//   }
+//   if (keysDown[37]) {
+//     //left
+//     pac_direction = "left";
+//     return 3;
+//   }
+//   if (keysDown[39]) {
+//     //right
+//     pac_direction = "right";
+//     return 4;
+//   }
+// }
 function GetKeyPressed() {
-  if (keysDown[38]) {
+  if (keysDown[user_upKey]) {
     //up
     pac_direction = "up";
     return 1;
   }
-  if (keysDown[40]) {
+  if (keysDown[user_downKey]) {
     //down
     pac_direction = "down";
     return 2;
   }
-  if (keysDown[37]) {
+  if (keysDown[user_leftKey]) {
     //left
     pac_direction = "left";
     return 3;
   }
-  if (keysDown[39]) {
+  if (keysDown[user_rightKey]) {
     //right
     pac_direction = "right";
     return 4;
@@ -362,7 +406,7 @@ function UpdatePosition() {
     eatenByMonster();
   }
 
-  // score +=1;}
+
   if (board[shape.i][shape.j] == num_5_points) {
     // +5
     score += 5;

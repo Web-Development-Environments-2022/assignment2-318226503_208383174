@@ -13,6 +13,7 @@
         <button onclick="goToWelcome()">Welcome</button>
         <button onclick="goToGame()">Game</button>
         <button onclick="goToAbout()">About</button>
+        <button onclick="goToSettings()">Settings</button>
       </menu>
     </header>
     <content>
@@ -41,17 +42,47 @@
           <label for="lblTime">TIME:</label>
           <input id="lblTime" type="text" />
         </div>
-        <div id="lives">
-          <label for="lblLives">LIVES:</label>
-          <input id="lblLives" type="text" />
         <div id="game">
           <canvas id="canvas" height="600" width="600"></canvas>
+
         </div>
       </div>
       <div class="aboutTab tabContainer">
         <h1>About</h1>
       </div>
-
+      <div class="settingsTab tabContainer">
+        <h1>Settings</h1>
+        <div class="testbox">
+          <form action="/">
+            <div class="banner">
+              <h1>Update Your Settings</h1>
+            </div>
+            <div class="item">
+              <h2>Choose your navigation keys</h2>
+              <div >
+                <h3>Choose up key:</h3>
+                <input type="button" id="upKey" onfocus="user_upKey = update_upKey()" value="first click, then press your wanted button" />
+              </div>
+              <div >
+                <h3>Choose down key:</h3>
+                <input type="button" id="downKey" onfocus="user_downKey = update_downKey()" value="first click, then press your wanted button" />
+              </div>
+              <div >
+                <h3>Choose left key:</h3>
+                <input type="button" id="leftKey" onfocus="user_leftKey = update_leftKey()" value="first click, then press your wanted button" />
+              </div>
+              <div >
+                <h3>Choose right key:</h3>
+                <input type="button" id="rightKey" onfocus="user_rightKey = update_rightKey()" value="first click, then press your wanted button" />
+              </div>
+              <div >
+                <h3>Update Keys</h3>
+                <input type="button" id="upDateKeys" onfocus="update_allKeys()" value="only for check" />
+              </div>
+            </div>
+             </form>
+        </div>
+      </div>
 
     </content>
   </body>

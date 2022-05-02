@@ -36,6 +36,11 @@ function goToAbout() {
   switchToTab(registerTab);
 }
 
+function goToSettings() {
+  const registerTab = $(".settingsTab");
+  switchToTab(registerTab);
+  // startSettings();
+}
 
 function switchToTab(newTab) {
   $(".tabContainer").removeClass("activeTab");
