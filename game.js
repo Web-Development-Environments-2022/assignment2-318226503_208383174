@@ -13,10 +13,57 @@ var pac_direction;
 var moving_50 = new Object();
 var special_candy = new Object();
 var monsters_start_locations;
+var monsters_last_movment;
+const num_of_rows = 10;
+const num_of_cols = 10;
 
 // paths
 special_candy_path = "resources/special_candy_2.png";
 fifty_points_path = "resources/fifty.jpg";
+// ghosts paths
+var red_down_path = "resources/ghosts/red down.png";
+var red_left_path = "resources/ghosts/red left.png";
+var red_right_path = "resources/ghosts/red right.png";
+var red_up_path = "resources/ghosts/red up.png";
+
+var blue_down_path = "resources/ghosts/blue down.png";
+var blue_left_path = "resources/ghosts/blue left.png";
+var blue_right_path = "resources/ghosts/blue right.png";
+var blue_up_path = "resources/ghosts/blue up.png";
+
+var pink_down_path = "resources/ghosts/pink down.png";
+var pink_left_path = "resources/ghosts/pink left.png";
+var pink_right_path = "resources/ghosts/pink right.png";
+var pink_up_path = "resources/ghosts/pink up.png";
+
+var orange_down_path = "resources/ghosts/orange down.png";
+var orange_left_path = "resources/ghosts/orange left.png";
+var orange_right_path = "resources/ghosts/orange right.png";
+var orange_up_path = "resources/ghosts/orange up.png";
+
+const MONSTER_START = 200;
+// dict mapping values to paths
+var ghostPaths = {
+  200: red_up_path,
+  201: red_right_path,
+  202: red_down_path,
+  203: red_left_path,
+
+  210: blue_up_path,
+  211: blue_right_path,
+  212: blue_down_path,
+  213: blue_left_path,
+
+  220: pink_up_path,
+  221: pink_right_path,
+  222: pink_down_path,
+  223: pink_left_path,
+
+  230: orange_up_path,
+  231: orange_right_path,
+  232: orange_down_path,
+  233: orange_left_path,
+};
 
 //nums in board
 const num_5_points = 80;
@@ -24,17 +71,14 @@ const num_15_points = 81;
 const num_25_points = 82;
 const num_50_points = 83;
 const num_special_candy = 40;
-const obstacles_to_ignore = [
-  num_5_points,
-  num_15_points,
-  num_25_points,
-  num_50_points,
-  num_special_candy,
-];
+const food_types = [num_5_points, num_15_points, num_25_points];
+const obstacles_to_ignore = [num_50_points, num_special_candy];
+
+// setting the size for the objects
 const food_size = 8;
 const packman_size = 25;
 
-//monsters
+// monsters
 var monsters_locations;
 var monsters_remain;
 const monster = 5;
@@ -59,16 +103,17 @@ function Start() {
   score = 0;
   lives = 5;
   pac_color = "yellow";
-  var cnt = 100;
+  var cnt = num_of_cols * num_of_rows;
   var food_remain = 50;
   var pacman_remain = 1;
-  monsters_remain = 2;
+  monsters_remain = 4;
   start_time = new Date();
 
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < num_of_rows; i++) {
     board[i] = new Array();
   }
 
+  // monsters location
   monsters_start_locations = [
     [0, 0],
     [0, 9],
@@ -76,17 +121,22 @@ function Start() {
     [9, 9],
   ];
 
+  monsters_last_movment = [];
   monsters_locations = [];
+
+  // setting the starting location
   for (var i = 0; i < monsters_remain; i++) {
+    var monster_movment = MONSTER_START + i * 10;
+    // starting at the start location
     var location = monsters_start_locations[i];
     var x = location[0];
     var y = location[1];
-    board[x][y] = monster;
+    board[x][y] = monster_movment;
     monsters_locations[i] = [x, y];
   }
 
-  for (var i = 0; i < 10; i++) {
-    for (var j = 0; j < 10; j++) {
+  for (var i = 0; i < num_of_rows; i++) {
+    for (var j = 0; j < num_of_cols; j++) {
       if (board[i][j] == undefined) {
         if (
           (i == 3 && j == 3) ||
@@ -120,9 +170,15 @@ function Start() {
             var randomNum = Math.random();
             if (randomNum <= (1.0 * food_remain) / cnt) {
               food_remain--;
-              var randFoodNum = Math.floor(Math.random()*(num_25_points-num_5_points+1)+num_5_points) //TODO: change
+              var randFoodNum = Math.floor(
+                Math.random() * (num_25_points - num_5_points + 1) +
+                  num_5_points
+              ); //TODO: change
               board[i][j] = randFoodNum;
-            } else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
+            } else if (
+              randomNum <
+              (1.0 * (pacman_remain + food_remain)) / cnt
+            ) {
               shape.i = i;
               shape.j = j;
               pacman_remain--;
@@ -245,8 +301,8 @@ function Draw() {
 
   context.fillStyle = "black";
   context.fillRect(0, 0, canvas.width, canvas.height);
-  for (var i = 0; i < 10; i++) {
-    for (var j = 0; j < 10; j++) {
+  for (var i = 0; i < num_of_rows; i++) {
+    for (var j = 0; j < num_of_cols; j++) {
       var center = new Object();
       center.x = i * 60 + 30;
       center.y = j * 60 + 30;
@@ -312,22 +368,37 @@ function Draw() {
       }
 
       // - monster -
-      else if (board[i][j] == monster || board[i][j] < 0) {
-        context.beginPath();
-        context.arc(
-          center.x,
-          center.y,
-          packman_size,
-          0.15 * Math.PI,
-          1.85 * Math.PI
-        ); // half circle
-        context.lineTo(center.x, center.y);
-        context.fillStyle = "blue"; //color
-        context.fill();
-        context.beginPath();
-        context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-        context.fillStyle = "white"; //color
-        context.fill();
+      else if (board[i][j] >= MONSTER_START || board[i][j] < 0) {
+        var monster_value = board[i][j];
+        var monster_movment;
+        // monster over food
+        if (monster_value < 0) {
+          monster_movment = MONSTER_START;
+          var movment;
+          // red
+          if (monster_value > -100) {
+            movment = monsters_last_movment[0];
+            monster_movment += movment;
+            // blue
+          } else if (monster_value > -1000) {
+            debugger;
+            movment = monsters_last_movment[1];
+            monster_movment += 10 + movment;
+            // pink
+          } else if (monster_value > -10000) {
+            movment = monsters_last_movment[2];
+            monster_movment += 20 + movment;
+            // orange
+          } else if (monster_value > -10000) {
+            movment = monsters_last_movment[3];
+            monster_movment += 30 + movment;
+          }
+        } else {
+          // the actual monster value
+          monster_movment = monster_value;
+        }
+        var path = ghostPaths[monster_movment];
+        drawCharacter(path, center, 40);
       }
 
       // - food -
@@ -352,32 +423,28 @@ function Draw() {
         context.fillStyle = "grey"; //color
         context.fill();
       } else if (board[i][j] == num_50_points) {
-        var moving_50_pic = new Image();
-        moving_50_pic.src = fifty_points_path;
-        context.beginPath();
-        context.drawImage(
-          moving_50_pic,
-          center.x - 30,
-          center.y - 30,
-          55,
-          55 * (moving_50_pic.height / moving_50_pic.width)
-        );
+        drawCharacter(fifty_points_path, center, 55);
       } else if (board[i][j] == num_special_candy) {
-        var special_candy_pic = new Image();
-        special_candy_pic.src = special_candy_path;
-        context.beginPath();
-        context.drawImage(
-          special_candy_pic,
-          center.x - 30,
-          center.y - 30,
-          55,
-          55 * (special_candy_pic.height / special_candy_pic.width)
-        );
+        drawCharacter(special_candy_path, center, 55);
       }
     }
   }
 }
 
+// generic function to draw character from image
+function drawCharacter(src, center, size) {
+  const img = new Image();
+  img.src = src;
+  context.drawImage(
+    img,
+    center.x - 30,
+    center.y - 30,
+    size,
+    size * (img.height / img.width)
+  );
+}
+
+// update packman position
 function UpdatePosition() {
   board[shape.i][shape.j] = 0;
   var x = GetKeyPressed();
@@ -405,7 +472,6 @@ function UpdatePosition() {
   if (board[shape.i][shape.j] == monster) {
     eatenByMonster();
   }
-
 
   if (board[shape.i][shape.j] == num_5_points) {
     // +5
@@ -529,8 +595,8 @@ function update_special_candy() {
   board[special_candy.i][special_candy.j] = num_special_candy;
 }
 
+// update enemy position
 function updateEnemyPosition() {
-  // debugger;
   for (var i = 0; i < monsters_remain; i++) {
     var location = monsters_locations[i];
     var x = location[0];
@@ -556,65 +622,109 @@ function updateEnemyPosition() {
       }
     }
     if (board[x][y] < 0) {
-      // was food now monster
-      board[x][y] = -1 * board[x][y];
+      // monster standing on food- moving from the food
+      if (i == 0) {
+        // red
+        board[x][y] = board[x][y] / -1;
+      } else if (i == 1) {
+        // blue
+        board[x][y] = board[x][y] / -10;
+      } else if (i == 2) {
+        // pink
+        board[x][y] = board[x][y] / -100;
+      } else if (i == 3) {
+        // orange
+        board[x][y] = board[x][y] / -1000;
+      }
     } else {
       board[x][y] = 0;
     }
   }
-  // Draw();
 }
 
+// move on the x axis
 function move_horizontaly_monster(x, y, i) {
+  var monster_movment = MONSTER_START + i * 10;
   var new_location;
   // move right
   if (x < shape.i) {
     new_location = [x + 1, y];
+    monsters_last_movment[i] = 1;
+    monster_movment += 1;
   }
   // move left
   else {
     new_location = [x - 1, y];
+    monsters_last_movment[i] = 3;
+    monster_movment += 3;
   }
-  return move_monster(new_location, i);
+  return move_monster(new_location, i, monster_movment);
 }
 
+// move on the y axis
 function move_diagonally_monster(x, y, i) {
+  var monster_movment = MONSTER_START + i * 10;
   // move down
   if (y < shape.j) {
     new_location = [x, y + 1];
+    monsters_last_movment[i] = 2;
+    monster_movment += 2;
   }
   // move up
   else {
     new_location = [x, y - 1];
+    monsters_last_movment[i] = 0;
+    monster_movment += 0;
   }
-  return move_monster(new_location, i);
+  return move_monster(new_location, i, monster_movment);
 }
 
-function move_monster(new_location, i) {
+// set the new monster location
+function move_monster(new_location, i, monster_movment) {
   var new_x = new_location[0];
   var new_y = new_location[1];
-  if (board[new_x][new_y] == 4 || board[new_x][new_y] == monster) {
+  if (
+    // not to step on
+    board[new_x][new_y] == 4 ||
+    board[new_x][new_y] >= MONSTER_START ||
+    obstacles_to_ignore.includes(board[new_x][new_y]) ||
+    board[new_x][new_y] < 0
+  ) {
     return false;
   }
-  // is obstacle
-  if (obstacles_to_ignore.includes(board[new_x][new_y]) == true) {
-    // there is food in the spot
-    board[new_x][new_y] = -1 * board[new_x][new_y]; // was food- now monster
+  // food
+  if (food_types.includes(board[new_x][new_y]) == true) {
+    // was food- now monster
+    if (i == 0) {
+      // red
+      board[new_x][new_y] = -1 * board[new_x][new_y];
+    } else if (i == 1) {
+      // blue
+      board[new_x][new_y] = -10 * board[new_x][new_y];
+    }
+    if (i == 2) {
+      // pink
+      board[new_x][new_y] = -100 * board[new_x][new_y];
+    }
+    if (i == 3) {
+      // orange
+      board[new_x][new_y] = -1000 * board[new_x][new_y];
+    }
   } else if (board[new_x][new_y] == 2) {
     // packman
     eatenByMonster();
     return true;
   } else {
     // 0
-    board[new_x][new_y] = monster; // blank
+    board[new_x][new_y] = monster_movment;
   }
   monsters_locations[i] = new_location;
   return true;
 }
 
+// packman eaten by monster
 function eatenByMonster() {
   stopInterval();
-
   if (lives > 0) {
     score -= 10;
     lives -= 1;
@@ -625,8 +735,6 @@ function eatenByMonster() {
 }
 
 function restart() {
-  debugger;
-
   // restart packman
   var emptyCell = findRandomEmptyCell(board);
   board[shape.i][shape.j] = 0;
@@ -653,6 +761,7 @@ function restart() {
   startInterval();
 }
 
+// stopping the interval
 function stopInterval() {
   clearInterval(interval);
   clearInterval(moving_50_interval);
@@ -660,9 +769,10 @@ function stopInterval() {
   clearInterval(enemy_interval);
 }
 
+// starting the interval
 function startInterval() {
   interval = setInterval(UpdatePosition, 90);
   moving_50_interval = setInterval(is_moving_50, 900);
   special_candy_interval = setInterval(update_special_candy, 3000);
-  enemy_interval = setInterval(updateEnemyPosition, 500);
+  enemy_interval = setInterval(updateEnemyPosition, 800);
 }
