@@ -96,31 +96,35 @@
           <div class = "item">
             <h2>Choose colors:</h2>
             <h2>Color for the 5 points:</h2>
-            <select id="user_color_5p" >
-              <option value="" style="color: green;"><b>green</b></option>
-              <option value="1" style="color: blue;"><b>blue</b></option>
-              <option value="2" style="color: pink;"><b>pink</b></option>
-              <option value="3" style="color: orange;"><b>orange</b></option>
+            <select id="user_color_5p_check" >
+              <option value="green" style="color: green;"><b>green</b></option>
+              <option value="blue" style="color: blue;"><b>blue</b></option>
+              <option value="pink" style="color: pink;"><b>pink</b></option>
+              <option value="orange" style="color: orange;"><b>orange</b></option>
             </select>
             <h2>Color for the 15 points:</h2>
-            <select id="user_color_15p" >
-              <option value="" style="color: green;"><b>green</b></option>
-              <option value="1" style="color: blue;"><b>blue</b></option>
-              <option value="2" style="color: pink;"><b>pink</b></option>
-              <option value="3" style="color: orange;"><b>orange</b></option>
+            <select id="user_color_15p_check" >
+              <option value="orange" style="color: orange;"><b>orange</b></option>
+              <option value="green" style="color: green;"><b>green</b></option>
+              <option value="blue" style="color: blue;"><b>blue</b></option>
+              <option value="pink" style="color: pink;"><b>pink</b></option>
+
             </select>
             <h2>Color for the 25 points:</h2>
-            <select id="user_color_25p" >
-              <option value="" style="color: green;"><b>green</b></option>
-              <option value="1" style="color: blue;"><b>blue</b></option>
-              <option value="2" style="color: pink;"><b>pink</b></option>
-              <option value="3" style="color: orange;"><b>orange</b></option>
+            <select id="user_color_25p_check" >
+              <option value="pink" style="color: pink;"><b>pink</b></option>
+              <option value="green" style="color: green;"><b>green</b></option>
+              <option value="blue" style="color: blue;"><b>blue</b></option>
+              <option value="orange" style="color: orange;"><b>orange</b></option>
             </select>
           </div>
         </br>
+        <div class="randomSettings">
+          <button type="button" onclick="randomSettings()">choose random settings</button>
+        </div>
         <div class="set_settings">
-          <!--change to submit-->
-          <button type="button" onclick="startSettings()">Save Settings</button>
+          <!--change to submit ? -->
+          <button type="button" onclick="checkSettings()">Save Settings</button>
         </div>
              </form>
         </div>

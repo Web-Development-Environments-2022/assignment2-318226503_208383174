@@ -50,6 +50,11 @@ var user_rightKey ;
 // var lblLives = new Object();
 var food_remain;
 
+// color of food balls
+var user_color_5p;
+var user_color_15p;
+var user_color_25p;
+
 function StartGame() {
   context = canvas.getContext("2d");
   console.log("in start game");
@@ -338,17 +343,17 @@ function Draw() {
       else if (board[i][j] == num_5_points) {
         context.beginPath();
         context.arc(center.x, center.y, food_size, 0, 2 * Math.PI); // circle
-        context.fillStyle = "green"; //5
+        context.fillStyle = user_color_5p; //5
         context.fill();
       } else if (board[i][j] == num_15_points) {
         context.beginPath();
         context.arc(center.x, center.y, food_size, 0, 2 * Math.PI); // circle
-        context.fillStyle = "orange"; //15
+        context.fillStyle = user_color_15p; //15
         context.fill();
       } else if (board[i][j] == num_25_points) {
         context.beginPath();
         context.arc(center.x, center.y, food_size, 0, 2 * Math.PI); // circle
-        context.fillStyle = "red"; //25
+        context.fillStyle = user_color_25p; //25
         context.fill();
       } else if (board[i][j] == 4) {
         context.beginPath();
