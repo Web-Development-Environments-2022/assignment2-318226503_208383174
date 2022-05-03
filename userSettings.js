@@ -1,37 +1,51 @@
 function checkSettings(){
 
-    // check arrow keys:
+    
     var keySet = new Set();
     keySet.add(user_upKey);
     keySet.add(user_downKey);
     keySet.add(user_leftKey);
     keySet.add(user_rightKey);
+    var ballSet = new Set();
+    ballSet.add(user_color_5p_check.value);
+    ballSet.add(user_color_15p_check.value);
+    ballSet.add(user_color_25p_check.value);
+    // check arrow keys:
     if(keySet.size != 4){
         window.alert("please choose different key to each move.");
     }
 
     // check number of balls:
-    if (document.getElementById('num_of_food').value<50 || document.getElementById('num_of_food').value>90){
+    else if (document.getElementById('num_of_food').value<50 || document.getElementById('num_of_food').value>90){
         window.alert("Number of food should be minimum 50 and maximum 90.");
     }
 
     // check ball colors
-    var ballSet = new Set();
-    ballSet.add(user_color_5p_check.value);
-    ballSet.add(user_color_15p_check.value);
-    ballSet.add(user_color_25p_check.value);
-    if(ballSet.size != 3){
+
+    else if(ballSet.size != 3){
         window.alert("please choose different colors to each food type.");
     }
 
-    startSettings();
+    // check game_durition
+    else if(document.getElementById('game_durition').value<60){
+        window.alert("Game durition should be at least 60 seconds.");
+    }
+
+    // num of monsters
+    else if(document.getElementById('num_monsters').value<1 || document.getElementById('num_monsters').value>4){
+        window.alert("Number of monsters should be minimum 1 and maximum 4.");
+    }
+    else{
+        startSettings();
+    }
+
     }
 
 function startSettings(){
     updateFoodNum();
     updateFoodColors();
-    console.log("5 point color is "+user_color_5p);
-    console.log("15 point color is "+user_color_15p);
+    updateGameDurition();
+    updateMonsters();
 }
 
 function update_upKey() {
@@ -102,6 +116,13 @@ function randomSettings(){
     user_rightKey = "ArrowRight";
     // num of food
     document.getElementById('num_of_food').value = Math.floor(Math.random()*40+50);
-    // food_remain = document.getElementById('num_of_food').value;
-    
+    document.getElementById('game_durition').value = Math.floor(Math.random()*60+60);
+    document.getElementById('num_monsters').value =Math.floor(Math.random()*3+1);
+}
+function updateGameDurition(){
+    user_game_durition = document.getElementById('game_durition').value;
+}
+
+function updateMonsters(){
+    monsters_remain = document.getElementById('num_monsters').value;
 }

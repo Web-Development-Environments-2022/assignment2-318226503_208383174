@@ -55,6 +55,10 @@ var user_color_5p;
 var user_color_15p;
 var user_color_25p;
 
+// game durution
+var user_game_durition;
+
+
 function StartGame() {
   context = canvas.getContext("2d");
   console.log("in start game");
@@ -73,7 +77,7 @@ function Start() {
   var remain_15p = Math.floor(0.3*food_remain);
   var remain_25p = Math.floor(0.1*food_remain);
   var pacman_remain = 1;
-  monsters_remain = 2;
+  // monsters_remain = 2;
   start_time = new Date();
 
   for (var i = 0; i < 10; i++) {
@@ -446,8 +450,11 @@ function UpdatePosition() {
   board[shape.i][shape.j] = 2;
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time) / 1000;
-
-  if (score >= 500) {
+  if(time_elapsed>=user_game_durition){
+    stopInterval();
+    window.alert("No more time left!");
+  }
+  if (score >= 200) {
     stopInterval();
     window.alert("Game completed");
   } else {
