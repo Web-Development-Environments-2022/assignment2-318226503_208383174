@@ -61,58 +61,74 @@
         <h1>Settings</h1>
         <div class="testbox">
           <form action="/">
-            <div class="banner">
-              <h1>Update Your Settings</h1>
-            </div>
-            <div class="item">
-              <h2>Choose your navigation keys</h2>
-              <div>
+            <div align="center" class="item">
+              <p class="chooseYourTitle">Choose your navigation keys</p>
+              <div align="center">
                 <h3>Choose up key:</h3>
-                <input
-                  type="button"
-                  id="upKey"
-                  onfocus="user_upKey = update_upKey()"
-                  value="first click, then press your wanted button"
-                />
+                <input class="keyButton" type="button" id="upKey" onfocus="user_upKey = update_upKey()" value="first click, then press your wanted button"/>
               </div>
-              <div>
+              <div align="center">
                 <h3>Choose down key:</h3>
-                <input
-                  type="button"
-                  id="downKey"
-                  onfocus="user_downKey = update_downKey()"
-                  value="first click, then press your wanted button"
-                />
+                <input class="keyButton" type="button" id="downKey" onfocus="user_downKey = update_downKey()" value="first click, then press your wanted button" />
               </div>
-              <div>
+              <div align="center">
                 <h3>Choose left key:</h3>
-                <input
-                  type="button"
-                  id="leftKey"
-                  onfocus="user_leftKey = update_leftKey()"
-                  value="first click, then press your wanted button"
-                />
+                <input class="keyButton" type="button" id="leftKey" onfocus="user_leftKey = update_leftKey()" value="first click, then press your wanted button" />
               </div>
-              <div>
+              <div align="center">
                 <h3>Choose right key:</h3>
-                <input
-                  type="button"
-                  id="rightKey"
-                  onfocus="user_rightKey = update_rightKey()"
-                  value="first click, then press your wanted button"
-                />
-              </div>
-              <div>
-                <h3>Update Keys</h3>
-                <input
-                  type="button"
-                  id="upDateKeys"
-                  onfocus="update_allKeys()"
-                  value="only for check"
-                />
+                <input class="keyButton" type="button" id="rightKey" onfocus="user_rightKey = update_rightKey()" value="first click, then press your wanted button" />
               </div>
             </div>
-          </form>
+            <div align="center" class = "item">
+              <p class="chooseYourTitle">Choose number of food(balls):</p>
+              <h3> (min 50 , max 90)</h3>
+              <input class="numFoodBox" id="num_of_food" type="text"/>
+            </div>
+          <div align="center" class = "item">
+            <p class="chooseYourTitle">Choose colors:</p>
+            <h2>Color for the 5 points:</h2>
+            <select class="colorSelection" id="user_color_5p_check" >
+              <option value="green" style="color: green;"><b>green</b></option>
+              <option value="blue" style="color: blue;"><b>blue</b></option>
+              <option value="pink" style="color: pink;"><b>pink</b></option>
+              <option value="orange" style="color: orange;"><b>orange</b></option>
+            </select>
+            <h2>Color for the 15 points:</h2>
+            <select class="colorSelection" id="user_color_15p_check" >
+              <option  value="orange" style="color: orange;"><b>orange</b></option>
+              <option value="green" style="color: green;"><b>green</b></option>
+              <option value="blue" style="color: blue;"><b>blue</b></option>
+              <option value="pink" style="color: pink;"><b>pink</b></option>
+
+            </select>
+            <h2>Color for the 25 points:</h2>
+            <select class="colorSelection" id="user_color_25p_check" >
+              <option value="pink" style="color: pink;"><b>pink</b></option>
+              <option value="green" style="color: green;"><b>green</b></option>
+              <option value="blue" style="color: blue;"><b>blue</b></option>
+              <option value="orange" style="color: orange;"><b>orange</b></option>
+            </select>
+          </div>
+          <div align="center" class = "item">
+            <p class="chooseYourTitle">Choose game durition (in seconds):</p>
+            <h3> (minimum 60 sec)</h3>
+            <input class="numFoodBox" id="game_durition" type="text"/>
+          </div>
+          <div align="center" class = "item">
+            <p class="chooseYourTitle">Choose number of monsters:</p>
+            <h3> (minimum 1 , maximun 4)</h3>
+            <input class="numFoodBox" id="num_monsters" type="text"/>
+          </div>
+        </br>
+        <div class="randomSettings">
+          <button type="button" onclick="randomSettings()" style="color: red;">choose random settings</button>
+        </div>
+        <div class="set_settings">
+          <!--change to submit ? -->
+          <button type="button" onclick="checkSettings()">Save Settings</button>
+        </div>
+             </form>
         </div>
       </div>
     </content>

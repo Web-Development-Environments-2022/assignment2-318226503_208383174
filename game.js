@@ -95,11 +95,20 @@ var user_leftKey = "ArrowLeft";
 var user_rightKey = "ArrowRight";
 
 // TODO: CHECK
-var lblLives = new Object();
+// var lblLives = new Object();
+var food_remain;
+
+// color of food balls
+var user_color_5p;
+var user_color_15p;
+var user_color_25p;
+
+// game durution
+var user_game_durition;
 
 function StartGame() {
   context = canvas.getContext("2d");
-
+  console.log("in start game");
   Start();
 }
 
@@ -108,10 +117,13 @@ function Start() {
   score = 0;
   lives = 5;
   pac_color = "yellow";
+
   var cnt = num_of_cols * num_of_rows;
-  var food_remain = 50;
   var pacman_remain = 1;
-  monsters_remain = 4;
+  var remain_5p = Math.floor(0.6 * food_remain);
+  var remain_15p = Math.floor(0.3 * food_remain);
+  var remain_25p = Math.floor(0.1 * food_remain);
+
   start_time = new Date();
 
   for (var i = 0; i < num_of_rows; i++) {
@@ -147,6 +159,7 @@ function Start() {
     for (var j = 0; j < num_of_cols; j++) {
       if (board[i][j] == 0) {
         if (
+          // walls
           // left up
           (i == 1 && j == 1) ||
           (i == 1 && j == 2) ||
@@ -198,70 +211,37 @@ function Start() {
           board[i][j] = num_50_points;
           moving_50.i = i;
           moving_50.j = j;
-        } else {
-          var randomNum = Math.random();
-          if (randomNum <= (1.0 * food_remain) / cnt) {
-            food_remain--;
-            var randFoodNum = Math.floor(
-              Math.random() * (num_25_points - num_5_points + 1) + num_5_points
-            );
-            board[i][j] = randFoodNum;
-          } else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
-            shape.i = i;
-            shape.j = j;
-            pacman_remain--;
-            board[i][j] = 2;
-          } else {
-            var randomNum = Math.random();
-            if (randomNum <= (1.0 * food_remain) / cnt) {
-              food_remain--;
-              var randFoodNum = Math.floor(
-                Math.random() * (num_25_points - num_5_points + 1) +
-                  num_5_points
-              ); //TODO: change
-              board[i][j] = randFoodNum;
-            } else if (
-              randomNum <
-              (1.0 * (pacman_remain + food_remain)) / cnt
-            ) {
-              shape.i = i;
-              shape.j = j;
-              pacman_remain--;
-              board[i][j] = 2;
-            } else {
-              board[i][j] = 0;
-            }
-            cnt--;
-          }
         }
       }
     }
   }
-  while (food_remain > 0) {
-    var emptyCell = findRandomEmptyCell(board);
-    var randFoodNum = Math.floor(
-      Math.random() * (num_25_points - num_5_points + 1) + num_5_points
-    );
-    board[emptyCell[0]][emptyCell[1]] = randFoodNum;
+
+  var emptyCell;
+  while (remain_5p > 0) {
+    emptyCell = findRandomEmptyCell(board);
+    board[emptyCell[0]][emptyCell[1]] = num_5_points;
+    remain_5p--;
     food_remain--;
   }
+  while (remain_15p > 0) {
+    emptyCell = findRandomEmptyCell(board);
+    board[emptyCell[0]][emptyCell[1]] = num_15_points;
+    remain_15p--;
+    food_remain--;
+  }
+  while (remain_25p > 0) {
+    emptyCell = findRandomEmptyCell(board);
+    board[emptyCell[0]][emptyCell[1]] = num_25_points;
+    remain_25p--;
+    food_remain--;
+  }
+  // put pacman
+  var emptyCell_pac = findRandomEmptyCell(board);
+  board[emptyCell_pac[0]][emptyCell_pac[1]] = 2;
+  shape.i = emptyCell_pac[0];
+  shape.j = emptyCell_pac[1];
+  pacman_remain--;
 
-  // -- Keypressed --
-  // keysDown = {};
-  // addEventListener(
-  //   "keydown",
-  //   function (e) {
-  //     keysDown[e.keyCode] = true;
-  //   },
-  //   false
-  // );
-  // addEventListener(
-  //   "keyup",
-  //   function (e) {
-  //     keysDown[e.keyCode] = false;
-  //   },
-  //   false
-  // );
   keysDown = {};
   addEventListener(
     "keydown",
@@ -293,28 +273,6 @@ function findRandomEmptyCell(board) {
   return [i, j];
 }
 
-// function GetKeyPressed() {
-//   if (keysDown[38]) {
-//     //up
-//     pac_direction = "up";
-//     return 1;
-//   }
-//   if (keysDown[40]) {
-//     //down
-//     pac_direction = "down";
-//     return 2;
-//   }
-//   if (keysDown[37]) {
-//     //left
-//     pac_direction = "left";
-//     return 3;
-//   }
-//   if (keysDown[39]) {
-//     //right
-//     pac_direction = "right";
-//     return 4;
-//   }
-// }
 function GetKeyPressed() {
   if (keysDown[user_upKey]) {
     //up
@@ -351,8 +309,6 @@ function Draw() {
       var center = new Object();
       center.x = i * cellSizePx + cellSizePx / 2;
       center.y = j * cellSizePx + cellSizePx / 2;
-      // center.x = i * 60 + 30;
-      // center.y = j * 60 + 30;
 
       // - packman -
       if (board[i][j] == 2) {
@@ -452,17 +408,17 @@ function Draw() {
       else if (board[i][j] == num_5_points) {
         context.beginPath();
         context.arc(center.x, center.y, food_size, 0, 2 * Math.PI); // circle
-        context.fillStyle = "green"; //5
+        context.fillStyle = user_color_5p; //5
         context.fill();
       } else if (board[i][j] == num_15_points) {
         context.beginPath();
         context.arc(center.x, center.y, food_size, 0, 2 * Math.PI); // circle
-        context.fillStyle = "orange"; //15
+        context.fillStyle = user_color_15p; //15
         context.fill();
       } else if (board[i][j] == num_25_points) {
         context.beginPath();
         context.arc(center.x, center.y, food_size, 0, 2 * Math.PI); // circle
-        context.fillStyle = "red"; //25
+        context.fillStyle = user_color_25p; //25
         context.fill();
       } else if (board[i][j] == 4) {
         // wall
@@ -508,10 +464,9 @@ function drawCharacter(src, center, size) {
 
 // update packman position
 function UpdatePosition() {
-  debugger;
-
   board[shape.i][shape.j] = 0;
   var x = GetKeyPressed();
+  console.log("x is: " + x);
   if (x == 1) {
     if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
       shape.j--;
@@ -561,8 +516,11 @@ function UpdatePosition() {
   board[shape.i][shape.j] = 2;
   var currentTime = new Date();
   time_elapsed = (currentTime - start_time) / 1000;
-
-  if (score >= 500) {
+  if (time_elapsed >= user_game_durition) {
+    stopInterval();
+    window.alert("No more time left!");
+  }
+  if (score >= 200) {
     stopInterval();
     window.alert("Game completed");
   } else {
@@ -571,15 +529,12 @@ function UpdatePosition() {
 }
 
 function is_moving_50() {
-  console.log([moving_50.i, moving_50.j]);
   var possiable_50_moves_ = available_50_move(moving_50.i, moving_50.j);
-  console.log("the value of possiable_50_moves_ is: ");
-  console.log(possiable_50_moves_);
   if (possiable_50_moves_.length == 0) {
     return;
   }
   var rand_50_move = Math.floor(Math.random() * possiable_50_moves_.length);
-  console.log("the value of rand_50_move is " + rand_50_move);
+
   board[moving_50.i][moving_50.j] = 0;
   if (rand_50_move == 0) {
     moving_50.i = possiable_50_moves_[0][0];
@@ -598,10 +553,6 @@ function is_moving_50() {
     moving_50.j = possiable_50_moves_[3][1];
   }
 
-  console.log(
-    "the value of new [moving_50.i,moving_50.j] is " +
-      [moving_50.i, moving_50.j]
-  );
   board[moving_50.i][moving_50.j] = num_50_points;
 }
 
@@ -611,37 +562,29 @@ function available_50_move(x, y) {
   var good_right;
   var good_up;
   var good_down;
-  console.log("the value of x,y is " + [x, y]);
   var nums = [2, 4, num_5_points, num_15_points, num_25_points];
   if (y > 0) {
     good_left = nums.includes(board[x][y - 1]);
-    console.log("the value of left is " + board[x][y - 1]);
     if (!good_left && board[x][y - 1] < 200 && board[x][y - 1] >= 0) {
-      console.log("the value of good_left is " + good_left);
       possiable_50_moves.push([x, y - 1]);
     }
   }
   if (y < num_of_rows - 1) {
     good_right = nums.includes(board[x][y + 1]);
-    console.log("the value of right is " + board[x][y + 1]);
     if (!good_right && board[x][y + 1] < 200 && board[x][y + 1] >= 0) {
-      console.log("the value of good_right is " + good_right);
       possiable_50_moves.push([x, y + 1]);
     }
   }
   if (x > 0) {
     good_up = nums.includes(board[x - 1][y]);
-    console.log("the value of up is " + board[x - 1][y]);
+
     if (!good_up && board[x - 1][y] < 200 && board[x - 1][y] >= 0) {
-      console.log("the value of good_up is " + good_up);
       possiable_50_moves.push([x - 1, y]);
     }
   }
   if (x < num_of_cols - 1) {
     good_down = nums.includes(board[x + 1][y]);
-    console.log("the value of down is " + board[x + 1][y]);
     if (!good_down && board[x + 1][y] < 200 && board[x + 1][y] >= 0) {
-      console.log("the value of good_down is " + good_down);
       possiable_50_moves.push([x + 1, y]);
     }
   }
