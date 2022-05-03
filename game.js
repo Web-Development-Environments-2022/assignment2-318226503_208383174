@@ -7,6 +7,7 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var enemy_interval;
 var moving_50_interval;
 var special_candy_interval;
 var pac_direction;
@@ -108,7 +109,6 @@ var user_game_durition;
 
 function StartGame() {
   context = canvas.getContext("2d");
-  console.log("in start game");
   Start();
 }
 
@@ -166,6 +166,9 @@ function Start() {
           (i == 1 && j == 3) ||
           // left middle
           (i == 1 && j == 5) ||
+          (i == 2 && j == 5) ||
+          (i == 3 && j == 5) ||
+          (i == 3 && j == 6) ||
           // left down
           (i == 1 && j == 12) ||
           (i == 2 && j == 12) ||
@@ -191,6 +194,8 @@ function Start() {
           (i == 8 && j == 5) ||
           (i == 9 && j == 5) ||
           (i == 10 && j == 5) ||
+          (i == 10 && j == 4) ||
+          (i == 11 && j == 4) ||
           (i == 10 && j == 6) ||
           (i == 10 && j == 7) ||
           (i == 12 && j == 8) ||
@@ -321,7 +326,7 @@ function Draw() {
             packman_size,
             1.65 * Math.PI,
             1.35 * Math.PI
-          ); // TODO: check
+          );
         } else if (pac_direction === "right") {
           context.arc(
             center.x,
@@ -384,7 +389,6 @@ function Draw() {
             monster_movment += movment;
             // blue
           } else if (monster_value > -1000) {
-            debugger;
             movment = monsters_last_movment[1];
             monster_movment += 10 + movment;
             // pink
@@ -407,18 +411,18 @@ function Draw() {
       // - food -
       else if (board[i][j] == num_5_points) {
         context.beginPath();
-        context.arc(center.x, center.y, food_size, 0, 2 * Math.PI); // circle
-        context.fillStyle = user_color_5p; //5
+        context.arc(center.x, center.y, food_size * 1, 0, 2 * Math.PI); // circle
+        context.fillStyle = user_color_5p;
         context.fill();
       } else if (board[i][j] == num_15_points) {
         context.beginPath();
-        context.arc(center.x, center.y, food_size, 0, 2 * Math.PI); // circle
-        context.fillStyle = user_color_15p; //15
+        context.arc(center.x, center.y, food_size * 1.2, 0, 2 * Math.PI); // circle
+        context.fillStyle = user_color_15p;
         context.fill();
       } else if (board[i][j] == num_25_points) {
         context.beginPath();
-        context.arc(center.x, center.y, food_size, 0, 2 * Math.PI); // circle
-        context.fillStyle = user_color_25p; //25
+        context.arc(center.x, center.y, food_size * 1.4, 0, 2 * Math.PI); // circle
+        context.fillStyle = user_color_25p;
         context.fill();
       } else if (board[i][j] == 4) {
         // wall
@@ -426,8 +430,8 @@ function Draw() {
         context.rect(
           center.x - cellSizePx / 2,
           center.y - cellSizePx / 2,
-          cellSizePx,
-          cellSizePx
+          cellSizePx * 0.8,
+          cellSizePx * 0.8
         );
         color = "black";
         context.fillStyle = color;
@@ -449,6 +453,12 @@ function Draw() {
   }
 }
 
+function addNumber(size, color, number, center) {
+  context.font = size;
+  context.fillStyle = color;
+  context.fillText(number, center.x, center.y);
+}
+
 // generic function to draw character from image
 function drawCharacter(src, center, size) {
   const img = new Image();
@@ -466,7 +476,6 @@ function drawCharacter(src, center, size) {
 function UpdatePosition() {
   board[shape.i][shape.j] = 0;
   var x = GetKeyPressed();
-  console.log("x is: " + x);
   if (x == 1) {
     if (shape.j > 0 && board[shape.i][shape.j - 1] != 4) {
       shape.j--;
@@ -519,8 +528,7 @@ function UpdatePosition() {
   if (time_elapsed >= user_game_durition) {
     stopInterval();
     window.alert("No more time left!");
-  }
-  if (score >= 200) {
+  } else if (score >= 200) {
     stopInterval();
     window.alert("Game completed");
   } else {
@@ -612,19 +620,28 @@ function updateEnemyPosition() {
 
     // trying to get the best move without hitting a wall
     var move_result;
-    debugger;
     var random = Math.random();
 
-    if (x_dist > y_dist && random < 0.65) {
-      // should move horizontaly
-      move_result = move_horizontaly_monster(x, y, i);
-      if (move_result == false) {
-        move_diagonally_monster(x, y, i);
-      }
+    if (random <= 0.2) {
+      findAvaliableway(x, y, i);
     } else {
-      move_result = move_diagonally_monster(x, y, i);
-      if (move_result == false) {
-        move_horizontaly_monster(x, y, i);
+      if (x_dist > y_dist && random < 0.65) {
+        // should move horizontaly
+        move_result = move_horizontaly_monster(x, y, i);
+        if (move_result == false) {
+          move_result = move_diagonally_monster(x, y, i);
+          if (move_result == false) {
+            findAvaliableway(x, y, i);
+          }
+        }
+      } else {
+        move_result = move_diagonally_monster(x, y, i);
+        if (move_result == false) {
+          move_result = move_horizontaly_monster(x, y, i);
+          if (move_result == false) {
+            findAvaliableway(x, y, i);
+          }
+        }
       }
     }
     if (board[x][y] < 0) {
@@ -646,6 +663,35 @@ function updateEnemyPosition() {
       board[x][y] = 0;
     }
   }
+  Draw();
+}
+
+// finds direction randonly
+function findAvaliableway(x, y, i) {
+  directions = [
+    [1, [x + 1, y]],
+    [3, [x - 1, y]],
+    [2, [x, y + 1]],
+    [0, [x, y - 1]],
+  ]; // all optional options
+
+  for (var j = 0; j < 15; j++) {
+    // trying random options
+    var locationRandom =
+      directions[Math.floor(Math.random() * directions.length)];
+    var result = tryDirection(locationRandom[0], locationRandom[1], i);
+    if (result == true) {
+      monsters_last_movment[i] = locationRandom[0];
+      return;
+    }
+  }
+}
+
+function tryDirection(direction, new_location, i) {
+  var monster_movment = MONSTER_START + i * 10 + direction;
+  var new_x = new_location[0];
+  var new_y = new_location[1];
+  return move_monster([new_x, new_y], i, monster_movment);
 }
 
 // move on the x axis
@@ -781,7 +827,7 @@ function stopInterval() {
 
 // starting the interval
 function startInterval() {
-  interval = setInterval(UpdatePosition, 120);
+  interval = setInterval(UpdatePosition, 150);
   moving_50_interval = setInterval(is_moving_50, 600);
   special_candy_interval = setInterval(update_special_candy, 3000);
   enemy_interval = setInterval(updateEnemyPosition, 800);

@@ -1,4 +1,5 @@
 function checkSettings() {
+  stopInterval(); // Stops the ongoing game if there is one
   var keySet = new Set();
   keySet.add(user_upKey);
   keySet.add(user_downKey);
@@ -117,7 +118,7 @@ function randomSettings() {
     Math.random() * 60 + 60
   );
   document.getElementById("num_monsters").value = Math.floor(
-    Math.random() * 3 + 1
+    Math.random() * 4 + 1
   );
 }
 function updateGameDurition() {
