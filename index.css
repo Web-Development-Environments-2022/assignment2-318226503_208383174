@@ -36,6 +36,7 @@ div#youDied.active {
   align-items: center;
   height: inherit;
   padding: 20px;
+  font-family: Roboto, Arial, sans-serif;
 }
 
 .banner {
@@ -104,3 +105,29 @@ select.colorSelection {
   height: 40px;
   font-size: 15px;
 }
+
+input.register_box{
+  width: 400px;
+  height: 30px;
+  font-size: 15px;
+}
+.item span {
+  color: red;
+  }
+
+
+  .item input:hover, .item select:hover, .item textarea:hover {
+  border: 1px solid transparent;
+  box-shadow: 0 0 8px 0 #195ec5;
+  color: #5f00cc;
+  }
+  .item {
+  position: relative;
+  margin: 10px 0;
+  }
+
+  input.rdate{
+    width: 200px;
+    height: 30px;
+    font-size: 15px;
+  }

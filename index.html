@@ -5,6 +5,8 @@
     <script type="text/javascript" src="./game.js"></script>
     <script type="text/javascript" src="./index.js"></script>
     <script type="text/javascript" src="./userSettings.js"></script>
+    <script type="text/javascript" src="./register.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
@@ -31,6 +33,38 @@
 
       <div class="registerTab tabContainer">
         <h1>Register</h1>
+        <div class="testbox">
+          <form id="register_info" >
+            <div class="item">
+              <label>User Name<span>*</span></label>
+              <input class="register_box" id="user_name_input" name="userName" type="text" />
+            </div>
+            <div class="item">
+              <label >Passwword<span>*</span></label>
+              <input class="register_box" id="password_input" name="password" type="text" />
+            </div>
+            <div class="item">
+              <label >Fisrt Name<span>*</span></label>
+              <input class="register_box" id="fName_input" name="firstName" type="text" />
+            </div>
+            <div class="item">
+              <label >Last Name<span>*</span></label>
+              <input class="register_box" id="lName_input" name="lastName" type="text" />
+            </div>
+            <div class="item">
+              <label >E-Mail<span>*</span></label>
+              <input class="register_box" id="eMail_input" name="email" type="text" />
+            </div>
+            <div class="item">
+              <label>Date of Birth<span>*</span></label>
+              <input class="rdate" type="date" name="birthDate" id="bDate_input"
+              value="2000-01-01">
+            </div>
+            <div class="Register">
+              <button type="submit"  name="submit">Register</button>
+            </div>
+          </form>
+        </div>
       </div>
 
       <div class="gameTab tabContainer">
