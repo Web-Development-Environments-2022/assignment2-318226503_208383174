@@ -13,7 +13,6 @@ $(document).ready(function () {
 function goToLogin() {
   const loginTab = $(".loginTab");
   switchToTab(loginTab);
-
 }
 
 function goToRegister() {
