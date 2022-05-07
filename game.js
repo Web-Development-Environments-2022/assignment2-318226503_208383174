@@ -563,9 +563,11 @@ function UpdatePosition() {
   } else if (board[shape.i][shape.j] == num_special_candy) {
     // special candy points
     score += 40;
+    clearInterval(special_candy);
   } else if (board[shape.i][shape.j] == num_special_candy_2) {
     // special candy points
     score += 40;
+    clearInterval(special_candy_2);
   } else if (board[shape.i][shape.j] == num_extra_time) {
     // special candy points
     user_game_durition = Math.round(Number(user_game_durition) + Number(30));
@@ -580,7 +582,7 @@ function UpdatePosition() {
   time_elapsed = Math.round((currentTime - start_time) / 1000);
   time_remain = Math.round(user_game_durition - time_elapsed);
   if (time_elapsed >= user_game_durition) {
-    stopInterval();
+    finishedGame();
     if (score < 100) {
       window.alert(
         score + " points" + "\n" + "You are better than " + score + " points!"
@@ -857,12 +859,19 @@ function eatenByMonster(isAngry) {
   } else {
     lives -= 1;
   }
+  Draw();
   if (lives > 0) {
     score -= 10;
     restart();
   } else {
+    finishedGame();
     alert(score + " points" + "\n " + "Loser!");
   }
+}
+
+// TODO- maybe
+function finishedGame() {
+  stopInterval();
 }
 
 function restart() {
