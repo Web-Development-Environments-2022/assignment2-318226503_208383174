@@ -44,4 +44,5 @@ function goToSettings() {
 function switchToTab(newTab) {
   $(".tabContainer").removeClass("activeTab");
   $(newTab).addClass("activeTab");
+  stopInterval();
 }
