@@ -46,7 +46,10 @@ $(document).ready(function () {
 
      // check if password is matching
      $.validator.addMethod("isGameUserPassword", function(value) {
-         return value==current_login_user.password;
+         if(current_login_user){
+            return value==current_login_user.password;
+         }
+         return false;
      });
 
 
