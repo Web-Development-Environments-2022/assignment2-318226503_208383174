@@ -6,6 +6,8 @@
     <script type="text/javascript" src="./index.js"></script>
     <script type="text/javascript" src="./userSettings.js"></script>
     <script type="text/javascript" src="./register.js"></script>
+    <script type="text/javascript" src="./DB.js"></script>
+    <script type="text/javascript" src="./login.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <link rel="stylesheet" href="./index.css" />
   </head>
@@ -29,6 +31,24 @@
 
       <div class="loginTab tabContainer">
         <h1>login</h1>
+        <div class="testbox">
+          <form id="login_form">
+            <h1>Login</h1>
+            <hr/>
+            <div class="item">
+              <label ><strong>UserName</strong></label>
+              <input class="register_box" type="text" placeholder="Enter UserName" name="uName" id="login_uName" >
+            </div>
+            <div class="item">
+              <label ><strong>Password</strong></label>
+              <input class="register_box" type="password" placeholder="Enter Password" name="password" id="login_pwd" >
+            </div>
+            <div class="item">
+              <button type="submit">Login</button>
+            </div>
+          </form>
+        </div>
+       
       </div>
 
       <div class="registerTab tabContainer">

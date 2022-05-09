@@ -20,6 +20,7 @@ var monsters_start_locations;
 var monsters_last_movment;
 const num_of_rows = 15;
 const num_of_cols = 15;
+var current_gameUser;
 
 // paths
 special_candy_path = "resources/candy.png";

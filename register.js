@@ -1,6 +1,22 @@
-// function saveRegister(){
+class gameUser{
+    constructor(userName,password,firstName,lastName,email,bDay){
+        this.userName = userName;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.bDay = bDay;
+    }
 
-// }
+    // get getUserName(){
+    //     return this.userName;
+    // }
+
+    // get getPassword(){
+    //     return this.password;
+    // }
+}
+
 $(document).ready(function () {
 
     $("#register_info").validate({
@@ -50,10 +66,10 @@ $(document).ready(function () {
                 email_check: "Please enter a legit e-mail address",
             }
         },
-        submitHandler: function (form) { // for demo
-            console.log("got into submit handler");
-            alert('valid form');  // for demo
-            return false;  // for demo
+        submitHandler: function (form) { 
+            addNewUser(document.getElementById('user_name_input').value,document.getElementById('password_input').value,
+            document.getElementById('fName_input').value,document.getElementById('lName_input').value,document.getElementById('eMail_input').value,
+            document.getElementById('bDate_input').value);
         }
     });
 
@@ -89,3 +105,11 @@ $.validator.addMethod("password_check", function(value) {
  });
  
 });
+
+
+// adding new user
+function addNewUser(userName,password,firstName,lastName,email,bDay){
+    var newUser = new gameUser(userName,password,firstName,lastName,email,bDay);
+    allUsers.push(newUser);
+    goToLogin();
+}
