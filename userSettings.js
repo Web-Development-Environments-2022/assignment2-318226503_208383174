@@ -48,6 +48,7 @@ function startSettings() {
   updateFoodColors();
   updateGameDurition();
   updateMonsters();
+  goToStartGame();
 }
 
 function update_upKey() {

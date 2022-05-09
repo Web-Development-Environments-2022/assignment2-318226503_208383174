@@ -41,6 +41,12 @@ function goToSettings() {
   // startSettings();
 }
 
+function goToStartGame() {
+  const registerTab = $(".startGameTab");
+  switchToTab(registerTab);
+  // startSettings();
+}
+
 function switchToTab(newTab) {
   $(".tabContainer").removeClass("activeTab");
   $(newTab).addClass("activeTab");

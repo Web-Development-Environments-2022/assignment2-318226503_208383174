@@ -21,6 +21,7 @@ var monsters_last_movment;
 const num_of_rows = 15;
 const num_of_cols = 15;
 var current_gameUser;
+var music;
 
 // paths
 special_candy_path = "resources/candy.png";
@@ -126,6 +127,8 @@ var time_remain;
 
 function StartGame() {
   context = canvas.getContext("2d");
+  music = new Audio("resources/music/pacman_remix.ogg");
+  music.play();
   Start();
 }
 
@@ -872,6 +875,8 @@ function eatenByMonster(isAngry) {
 
 // TODO- maybe
 function finishedGame() {
+  music.pause();
+  music.currentTime =0;
   stopInterval();
 }
 

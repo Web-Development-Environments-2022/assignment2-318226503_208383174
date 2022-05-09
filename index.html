@@ -30,7 +30,6 @@
       </div>
 
       <div class="loginTab tabContainer">
-        <h1>login</h1>
         <div class="testbox">
           <form id="login_form">
             <h1>Login</h1>
@@ -52,9 +51,10 @@
       </div>
 
       <div class="registerTab tabContainer">
-        <h1>Register</h1>
         <div class="testbox">
           <form id="register_info" >
+            <h1>Register</h1>
+            <hr/>
             <div class="item">
               <label>User Name<span>*</span></label>
               <input class="register_box" id="user_name_input" name="userName" type="text" />
@@ -116,9 +116,10 @@
         <h1>About</h1>
       </div>
       <div class="settingsTab tabContainer">
-        <h1>Settings</h1>
         <div class="testbox">
           <form action="/">
+            <h1>Settings</h1>
+            <hr/>
             <div align="center" class="item">
               <p class="chooseYourTitle">Choose your navigation keys</p>
               <div align="center">
@@ -187,6 +188,18 @@
           <button type="button" onclick="checkSettings()">Save Settings</button>
         </div>
              </form>
+        </div>
+      </div>
+      <div class="startGameTab tabContainer">
+        <div class="testbox">
+          <form id="startGame_form">
+            <h1>Start Game</h1>
+            <hr/>
+            <div class="item">
+              <button type="button" onclick="goToGame()">Start</button>
+              <button type="button" onclick="goToSettings()">Back</button>
+            </div>
+          </form>
         </div>
       </div>
     </content>
