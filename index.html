@@ -88,6 +88,12 @@
       </div>
 
       <div class="gameTab tabContainer">
+        <div >
+          <label for="lblUserName">User Name: </label>
+          <input id="lblUserName" type="text" />
+          <button type="button" class="stopGameButton" onclick="finishedGame()">stop game</button>
+        </div>
+        <hr/>
         <div id="score" class="inlineDiv">
           <label for="lblScore">SCORE:</label>
           <input id="lblScore" type="text" />
@@ -148,7 +154,7 @@
             <p class="chooseYourTitle">Choose colors:</p>
             <h2>Color for the 5 points:</h2>
             <select class="colorSelection" id="user_color_5p_check" >
-              <option value="green" style="color: green;"><b>green</b></option>
+              <option ty value="green" style="color: green;"><b>green</b></option>
               <option value="blue" style="color: blue;"><b>blue</b></option>
               <option value="pink" style="color: pink;"><b>pink</b></option>
               <option value="orange" style="color: orange;"><b>orange</b></option>

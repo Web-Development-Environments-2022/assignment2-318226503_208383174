@@ -142,3 +142,14 @@ input.rdate {
     padding: 16px 0;
     text-align:left;
     }
+
+.stopGameButton{
+  width: 100px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background: #b9555d;
+  font-size: 13px;
+  color: rgb(27, 13, 13);
+  cursor: pointer;
+}

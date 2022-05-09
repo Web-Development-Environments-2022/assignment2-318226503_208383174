@@ -342,6 +342,7 @@ function Draw() {
   lblLives.value = lives;
   lblTime.value = time_elapsed;
   lblTimeLeft.value = time_remain;
+  lblUserName.value = current_gameUser.userName;
 
   context.fillStyle = "black";
   context.fillRect(0, 0, canvas.width, canvas.height);
