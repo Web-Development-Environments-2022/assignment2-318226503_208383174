@@ -8,11 +8,16 @@
     <script type="text/javascript" src="./register.js"></script>
     <script type="text/javascript" src="./DB.js"></script>
     <script type="text/javascript" src="./login.js"></script>
+    <script type="text/javascript" src="./about.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
     <div class="main">
+      <div class="logoAndMenu">
+      <header>
+        <img src="resources/ourlogo.png" width=770px class="logo">
+      </header>
     <header>
       <menu>
         <button onclick="goToWelcome()">Welcome</button>
@@ -21,9 +26,10 @@
         <button onclick="goToAbout()">About</button>
       </menu>
     </header>
+    </div>
     <content>
       <div class="welcomeTab tabContainer activeTab">
-        <img src="resources/logo.png" width="305" class="logo">
+        <img src="resources/logo.png" width="305" class="welcomelogo">
         <div class="loginButtons">
           <button onclick="goToLogin()">Login</button>
           <button onclick="goToRegister()">Register</button>
@@ -118,7 +124,12 @@
         </div>
       </div>
       <div class="aboutTab tabContainer">
-        <h1>About</h1>
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+          </div>
+        </div>
       </div>
       <div class="settingsTab tabContainer">
         <h1>Settings</h1>
@@ -142,22 +153,22 @@
             <div class="choceColor">
             <label>5 points:</label>
             <select class="colorSelection" id="user_color_5p_check" >
-              <option disabled selected value>- 5 - </option>
-              <option ty value="green" style="color: green;"><b>green</b></option>
+              <!-- <option disabled selected value>- 5 - </option> -->
+              <option ty value="pink" style="color: pink;"><b>pink</b></option>
+              <option value="orange" style="color: orange;"><b>orange</b></option>
+              <option value="green" style="color: green;"><b>green</b></option>
               <option value="blue" style="color: blue;"><b>blue</b></option>
               <option value="purple" style="color: purple;"><b>purple</b></option>
-              <option value="pink" style="color: pink;"><b>pink</b></option>
-              <option value="orange" style="color: orange;"><b>orange</b></option>
               <option value="yellow" style="color: yellow;"><b>yellow</b></option>
             </select>
           </div>
           <div class="choceColor">            
             <label>15 points:</label>
             <select class="colorSelection" id="user_color_15p_check" >
-              <option disabled selected value> - 15 - </option>
-              <option ty value="green" style="color: green;"><b>green</b></option>
+              <!-- <option disabled selected value> - 15 - </option> -->
+              <option ty value="purple" style="color: purple;"><b>purple</b></option>
+              <option value="green" style="color: green;"><b>green</b></option>
               <option value="blue" style="color: blue;"><b>blue</b></option>
-              <option value="purple" style="color: purple;"><b>purple</b></option>
               <option value="pink" style="color: pink;"><b>pink</b></option>
               <option value="orange" style="color: orange;"><b>orange</b></option>
               <option value="yellow" style="color: yellow;"><b>yellow</b></option>
@@ -166,12 +177,12 @@
             <div class="choceColor">            
             <label>25 points:</label>
             <select class="colorSelection" id="user_color_25p_check" >
-              <option disabled selected value> - 25 - </option>
-              <option ty value="green" style="color: green;"><b>green</b></option>
+              <!-- <option disabled selected value> - 25 - </option> -->
+              <option ty value="orange" style="color: orange;"><b>orange</b></option>
+              <option value="pink" style="color: pink;"><b>pink</b></option>
+              <option value="green" style="color: green;"><b>green</b></option>
               <option value="blue" style="color: blue;"><b>blue</b></option>
               <option value="purple" style="color: purple;"><b>purple</b></option>
-              <option value="pink" style="color: pink;"><b>pink</b></option>
-              <option value="orange" style="color: orange;"><b>orange</b></option>
               <option value="yellow" style="color: yellow;"><b>yellow</b></option>
             </select>
           </div>
@@ -210,6 +221,9 @@
         </div>
       </div>
     </content>
+    <footer>
+      ** foot foot **
+    </footer>
   </div>
   </body>
 </html>

@@ -6,6 +6,8 @@ class User {
 }
 let users = [];
 
+let previousTab = null;
+
 $(document).ready(function () {
   users.push(new User("k", "k"));
 });
@@ -20,30 +22,32 @@ function goToRegister() {
   switchToTab(registerTab);
 }
 function goToWelcome() {
-  const registerTab = $(".welcomeTab");
-  switchToTab(registerTab);
+  const welcomeTab = $(".welcomeTab");
+  switchToTab(welcomeTab);
 }
 
 function goToGame() {
-  const registerTab = $(".gameTab");
-  switchToTab(registerTab);
+  const gameTab = $(".gameTab");
+  switchToTab(gameTab);
   StartGame();
 }
 
 function goToAbout() {
-  const registerTab = $(".aboutTab");
-  switchToTab(registerTab);
+  previousTab = $(".tabContainer.activeTab");
+  const aboutTab = $(".aboutTab");
+  switchToTab(aboutTab);
+  initAbout();
 }
 
 function goToSettings() {
-  const registerTab = $(".settingsTab");
-  switchToTab(registerTab);
+  const settingsTab = $(".settingsTab");
+  switchToTab(settingsTab);
   // startSettings();
 }
 
 function goToStartGame() {
-  const registerTab = $(".startGameTab");
-  switchToTab(registerTab);
+  const startGameTab = $(".startGameTab");
+  switchToTab(startGameTab);
   // startSettings();
 }
 
@@ -51,4 +55,13 @@ function switchToTab(newTab) {
   $(".tabContainer").removeClass("activeTab");
   $(newTab).addClass("activeTab");
   stopInterval();
+}
+
+function switchToPreviousTab() {
+  if (previousTab == null) {
+    goToWelcome();
+  } else {
+    switchToTab(previousTab);
+    previousTab = null;
+  }
 }

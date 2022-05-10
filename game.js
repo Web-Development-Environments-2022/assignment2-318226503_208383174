@@ -473,14 +473,15 @@ function Draw() {
         color = "black";
         context.fillStyle = color;
         context.fill();
-        context.strokeStyle = "#1919A6";
+        context.strokeStyle = "orange";
+        // context.strokeStyle = "#1919A6";
         context.strokeRect(
           center.x - cellSizePx / 2,
           center.y - cellSizePx / 2,
           cellSizePx,
           cellSizePx
         );
-        context.lineWidth = 3;
+        context.lineWidth = 1;
       } else if (board[i][j] == num_50_points) {
         // 50 points
         drawCharacter(fifty_points_path, center, special_candy_size * 0.8);
@@ -877,7 +878,7 @@ function eatenByMonster(isAngry) {
 // TODO- maybe
 function finishedGame() {
   music.pause();
-  music.currentTime =0;
+  music.currentTime = 0;
   stopInterval();
 }
 
