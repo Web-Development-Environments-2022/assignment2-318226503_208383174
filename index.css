@@ -22,10 +22,11 @@ menu button {
 
 .main {
   /* background-color: #b9555d; */
-  width: 800px;
-  height: 800px;
+  min-width: 800px;
+  min-height: 800px;
   border: 2px solid black;
   margin-left: 10px;
+  display: inline-block;
 }
 
 .tabContainer {
