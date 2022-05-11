@@ -702,24 +702,25 @@ function updateEnemyPosition() {
     var move_result;
     var random = Math.random();
 
-    // if (random <= 0.2) {
-    //   findAvaliableway(x, y, i);
-    // } else {
-    if ((x_dist > y_dist && random < 0.65) || x_dist <= 1) {
-      // should move horizontaly
-      move_result = move_horizontaly_monster(x, y, i);
-      if (move_result == false) {
-        move_result = move_diagonally_monster(x, y, i);
-        if (move_result == false) {
-          findAvaliableway(x, y, i);
-        }
-      }
+    if (random <= 0.2) {
+      findAvaliableway(x, y, i);
     } else {
-      move_result = move_diagonally_monster(x, y, i);
-      if (move_result == false) {
+      if ((x_dist > y_dist && random < 0.65) || x_dist <= 1) {
+        // should move horizontaly
         move_result = move_horizontaly_monster(x, y, i);
         if (move_result == false) {
-          findAvaliableway(x, y, i);
+          move_result = move_diagonally_monster(x, y, i);
+          if (move_result == false) {
+            findAvaliableway(x, y, i);
+          }
+        }
+      } else {
+        move_result = move_diagonally_monster(x, y, i);
+        if (move_result == false) {
+          move_result = move_horizontaly_monster(x, y, i);
+          if (move_result == false) {
+            findAvaliableway(x, y, i);
+          }
         }
       }
     }

@@ -16,7 +16,7 @@
     <div class="main">
       <div class="logoAndMenu">
       <header>
-        <img src="resources/ourlogo.png" width=770px class="logo">
+        <img src="resources/logo.jpg" width=770px class="logo">
       </header>
       <header>
         <menu>
@@ -24,6 +24,7 @@
           <button onclick="goToRegister()">Register</button>
           <button onclick="goToLogin()">Login</button>
           <button onclick="goToAbout()">About</button>
+          <button onclick="goToGame()">Game</button>
         </menu>
       </header>
     </div>
@@ -34,6 +35,11 @@
           <button onclick="goToLogin()">Login</button>
           <button onclick="goToRegister()">Register</button>
         </div>
+        <div class="pacman">
+          <div class="pacman-top"></div>
+          <div class="pacman-bottom"></div>
+          <div class="feed"></div>
+        </div>    
       </div>
 
       <div class="loginTab tabContainer">
@@ -93,14 +99,13 @@
       </div>
 
       <div class="gameTab tabContainer">
-        <div >
+        <div class="mainGame">
+          <div id="username">
           <label for="lblUserName">User Name: </label>
           <input id="lblUserName" type="text" />
-          <button type="button" class="stopGameButton" onclick="finishedGame()">stop game</button>
-        </div>
-        <hr/>
+          </div>
         <div id="score" class="inlineDiv">
-          <label for="lblScore">SCORE:</label>
+          <label for="lblScore">Score:</label>
           <input id="lblScore" type="text" />
         </div>
         <div id="time" class="inlineDiv">
@@ -122,6 +127,9 @@
             <!-- Size of board -->
           </div>
         </div>
+        <button type="button" class="stopGameButton" onclick="finishedGame()">stop game</button>
+
+      </div>
       </div>
       <div class="aboutTab tabContainer">
         <div id="myModal" class="modal">
@@ -227,11 +235,16 @@
             <h1>Start Game</h1>
             <hr/>
             <div class="item">
-              <button type="button" onclick="goToGame()">Start</button>
-              <button type="button" onclick="goToSettings()">Back</button>
+              <button type="button" onclick="goToGame()" id="start">Start</button>
+              <button type="button" onclick="goToSettings()" id="back">Back</button>
             </div>
           </form>
         </div>
+        <div class="pacman">
+          <div class="pacman-top"></div>
+          <div class="pacman-bottom"></div>
+          <div class="feed"></div>
+        </div>    
       </div>
     </content>
     <footer>

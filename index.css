@@ -1,9 +1,14 @@
-
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
 
 h1 {
   font-family: Roboto, Arial, sans-serif;
   text-align: center;
-  margin: 25px 0 10px 0;
+  font-size: 40px;
+  margin: 18px 0 8px 0;
+  /* color: #f08200; */
+  -webkit-text-fill-color: #f08200;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
 }
 
 menu {
@@ -17,7 +22,7 @@ menu {
 }
 
 menu button {
-  margin: 0px 1px 0px 1px;
+  margin: 0px 5px 0px 5px;
 }
 
 .main {
@@ -57,10 +62,16 @@ header {
 
 .inlineDiv {
   display: inline-block;
+  margin: 0 5px 0 5px;
+  font-size: 17px;
 }
 
 .inlineDiv input {
-  width: 70px;
+  width: 50px;
+  text-align: center;
+  margin: 0 1px 0 1px;
+  outline: none;
+  border: 1px solid #715385;
 }
 div#game,
 .canvasContainer {
@@ -118,10 +129,59 @@ button:hover {
   box-shadow: 0 0 18px 0 #3d2914;
 }
 
+.settingsTab {
+  width: 800px;
+}
+
 .set_settings {
   margin-top: 10px;
   /* text-align: center; */
 }
+
+.mainGame {
+  text-align: center;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.mainGame #lblUserName {
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  width: auto;
+  font-weight: bold;
+}
+
+#username {
+  text-align: left;
+  margin: 0 0 8px 10px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+#canvas {
+  margin: 20px 0 10px 0;
+  /* border: 3px solid black; */
+
+  border: 3px solid rgb(216, 167, 103);
+  padding: 11px;
+}
+
+#startGame_form {
+  background-color: white;
+  box-shadow: 0 0 0 0 white;
+}
+
+#startGame_form button {
+  background-color: orange;
+  margin: 5px 5px 0 5px;
+}
+
+#startGame_form #back {
+  background-color: grey;
+}
+
 .randomSettings {
   margin-top: 10px;
   text-align: center;
@@ -143,11 +203,11 @@ form {
   width: 80%;
   /* padding-left: 20px; */
   /* padding-right: 20px; */
-  padding: 15px 20px 25px 20px;
+  padding: 10px 20px 25px 20px;
   border-radius: 6px;
   background: rgb(169, 187, 223);
   /* box-shadow: 0 0 15px 0 #7584db; */
-  box-shadow: 0 0 15px 0 #e06901;
+  box-shadow: 0 0 13px 0 #e19451;
 
   /* margin-top: 10px; */
 }
@@ -214,12 +274,15 @@ input.register_box {
   width: 400px;
   height: 30px;
   font-size: 15px;
+  display: block;
+  margin: auto;
 }
 .item span {
   color: red;
 }
-.registerTab .item {
-  width: 150px;
+
+label.error {
+  font-weight: bold;
 }
 
 .testbox button {
@@ -259,13 +322,13 @@ input.rdate {
 }
 
 .stopGameButton {
-  width: 100px;
-  padding: 5px;
-  border: none;
+  width: 150px;
+  height: 37px;
   border-radius: 5px;
-  background: #b9555d;
-  font-size: 13px;
-  color: rgb(27, 13, 13);
+  margin: 5px 0 20px 0;
+  background: grey;
+  font-size: 17px;
+  color: white;
   cursor: pointer;
 }
 .welcomeTab {
@@ -292,9 +355,10 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #e0dada;
+  background-color: #f9f4f4;
   color: black;
   text-align: center;
+  padding-top: 2px;
   font-family: Roboto, Arial, sans-serif;
 }
 
@@ -336,16 +400,162 @@ footer {
   cursor: pointer;
 }
 
-p.aboutTitle{
+p.aboutTitle {
   color: rgb(77, 6, 105);
   font-family: Roboto, Arial, sans-serif;
   font-weight: 600;
   font-size: 18px;
 }
 
-p.aboutBody{
+p.aboutBody {
   color: rgb(0, 0, 0);
   font-family: Roboto, Arial, sans-serif;
   font-weight: 200;
   font-size: 15px;
+}
+
+/* 
+html{
+  background-color:#000;
+  border-bottom:solid 5px blue;
+  border-top:solid 5px blue;
+  overflow-x:hidden;
+  padding-bottom:142px;
+}
+
+p{
+  color:#FFF;
+  font: 50px 'Press Start 2P',  cursive;
+  margin:200px 139px;
+  position:absolute;
+  text-align:center;
+} */
+
+.pacman {
+  margin: 40px 10px;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 90px;
+}
+
+.pacman-top {
+  background-color: #fccf00;
+  height: 30px;
+  width: 60px;
+  border-radius: 100px 100px 0 0;
+  animation: spin1 0.7s infinite 0.2s linear;
+}
+
+.pacman-bottom {
+  background-color: #fccf00;
+  height: 30px;
+  width: 60px;
+  border-radius: 0 0 100px 100px;
+  animation: spin2 0.7s infinite 0.2s linear;
+}
+
+.feed {
+  margin-top: -108px;
+  margin-left: 15px;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  -moz-animation: eat 0.7s linear 0s infinite;
+  -webkit-animation: eat 0.7s linear 0s infinite;
+  animation: eat 0.7s linear 0s infinite;
+}
+
+/* Animation*/
+
+@keyframes spin1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-35deg);
+  }
+}
+@keyframes spin2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(35deg);
+  }
+}
+
+@-moz-keyframes spin1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-35deg);
+  }
+}
+@-moz-keyframes spin2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(35deg);
+  }
+}
+
+@-webkit-keyframes spin1 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-35deg);
+  }
+}
+@-webkit-keyframes spin2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(35deg);
+  }
+}
+
+@keyframes eat {
+  0% {
+    box-shadow: 152px 65px 0 0 #54435f, 270px 65px 0 0 #54435f,
+      387px 65px 0 0 #54435f, 505px 65px 0 0 #54435f, 622px 65px 0 0 #54435f,
+      740px 65px 0 0 #54435f;
+  }
+
+  100% {
+    box-shadow: 35px 65px 0 0 #54435f, 152px 65px 0 0 #54435f,
+      270px 65px 0 0 #54435f, 387px 65px 0 0 #54435f, 505px 65px 0 0 #54435f,
+      622px 65px 0 0 #54435f;
+  }
+}
+
+@-moz-keyframes eat {
+  0% {
+    box-shadow: 100px 65px 0 0 #54435f, 300px 65px 0 0 #54435f,
+      500px 65px 0 0 #54435f, 700px 65px 0 0 #54435f, 900px 65px 0 0 #54435f,
+      1100px 65px 0 0 #54435f, 1300px 65px 0 0 #54435f;
+  }
+
+  100% {
+    box-shadow: 0px 65px 0 0 #54435f, 100px 65px 0 0 #54435f,
+      300px 65px 0 0 #54435f, 500px 65px 0 0 #54435f, 700px 65px 0 0 #54435f,
+      900px 65px 0 0 #54435f, 1100px 65px 0 0 #54435f;
+  }
+}
+
+@-webkit-keyframes eat {
+  0% {
+    box-shadow: 100px 65px 0 0 #54435f, 300px 65px 0 0 #54435f,
+      500px 65px 0 0 #54435f, 700px 65px 0 0 #54435f, 900px 65px 0 0 #54435f,
+      1100px 65px 0 0 #54435f, 1300px 65px 0 0 #54435f;
+  }
+
+  100% {
+    box-shadow: 0px 65px 0 0 #54435f, 100px 65px 0 0 #54435f,
+      300px 65px 0 0 #54435f, 500px 65px 0 0 #54435f, 700px 65px 0 0 #54435f,
+      900px 65px 0 0 #54435f, 1100px 65px 0 0 #54435f;
+  }
 }
