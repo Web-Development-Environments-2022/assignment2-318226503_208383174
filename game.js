@@ -596,6 +596,9 @@ function UpdatePosition() {
     } else {
       window.alert(score + " points" + "\n" + "Winner!!!");
     }
+    if(window.confirm("Start New Game?")){
+      goToSettings();
+    }
   } else {
     Draw();
   }
@@ -873,6 +876,9 @@ function eatenByMonster(isAngry) {
   } else {
     finishedGame();
     alert(score + " points" + "\n " + "Loser!");
+    if(window.confirm("Start New Game?")){
+      goToSettings();
+    }
   }
 }
 

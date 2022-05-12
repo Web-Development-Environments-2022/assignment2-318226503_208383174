@@ -22,6 +22,24 @@ $(document).ready(function () {
         isGameUserPassword: "wrong password",
       },
     },
+    invalidHandler: function(form, validator) {
+      var errors_num = validator.numberOfInvalids();
+      var error_message="";
+      if (errors_num) {
+        if (validator.errorList.length > 0) {
+            for (x=0;x<validator.errorList.length;x++) {
+              if(x!=0){
+                error_message += ","
+              }              
+              error_message += validator.errorList[x].message;
+              error_message += " "
+            }
+        }
+        alert(error_message);
+      }
+    },
+
+
     submitHandler: function (form) {
       current_gameUser = current_login_user;
       goToSettings();
