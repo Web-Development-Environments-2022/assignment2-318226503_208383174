@@ -112,8 +112,6 @@ var user_downKey = "ArrowDown";
 var user_leftKey = "ArrowLeft";
 var user_rightKey = "ArrowRight";
 
-// TODO: CHECK
-// var lblLives = new Object();
 var food_remain;
 
 // color of food balls
@@ -596,7 +594,7 @@ function UpdatePosition() {
     } else {
       window.alert(score + " points" + "\n" + "Winner!!!");
     }
-    if(window.confirm("Start New Game?")){
+    if (window.confirm("Start New Game?")) {
       goToSettings();
     }
   } else {
@@ -876,7 +874,7 @@ function eatenByMonster(isAngry) {
   } else {
     finishedGame();
     alert(score + " points" + "\n " + "Loser!");
-    if(window.confirm("Start New Game?")){
+    if (window.confirm("Start New Game?")) {
       goToSettings();
     }
   }

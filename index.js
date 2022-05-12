@@ -46,8 +46,8 @@ function goToSettings() {
 }
 
 function goToStartGame() {
-  const startGameTab = $(".startGameTab");
-  switchToTab(startGameTab);
+  // const startGameTab = $(".startGameTab");
+  // switchToTab(startGameTab);
   // startSettings();
 }
 

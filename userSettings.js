@@ -48,7 +48,7 @@ function startSettings() {
   updateFoodColors();
   updateGameDurition();
   updateMonsters();
-  goToStartGame();
+  goToGame();
 }
 
 function update_upKey() {
@@ -88,10 +88,15 @@ function update_allKeys() {
   console.log("down key is " + user_downKey);
   console.log("left key is " + user_leftKey);
   console.log("right key is " + user_rightKey);
+  upKey.value = user_upKey;
+  downKey.value = user_downKey;
+  leftKey.value = user_leftKey;
+  rightKey.value = user_rightKey;
 }
 function updateFoodNum() {
   // document.getElementById('num_of_food').value='';
   food_remain = document.getElementById("num_of_food").value;
+  numberOfBalls.innerText = food_remain;
   // console.log("number of food is: "+food_remain);
 }
 
@@ -99,6 +104,9 @@ function updateFoodColors() {
   user_color_5p = user_color_5p_check.value;
   user_color_15p = user_color_15p_check.value;
   user_color_25p = user_color_25p_check.value;
+  colorFor5.innerText = user_color_5p;
+  colorFor15.innerText = user_color_15p;
+  colorFor25.innerText = user_color_25p;
 }
 
 function randomSettings() {
@@ -124,8 +132,10 @@ function randomSettings() {
 }
 function updateGameDurition() {
   user_game_durition = document.getElementById("game_durition").value;
+  gameDurition.innerText = user_game_durition;
 }
 
 function updateMonsters() {
   monsters_remain = document.getElementById("num_monsters").value;
+  numOfMonsters.innerText = monsters_remain;
 }
