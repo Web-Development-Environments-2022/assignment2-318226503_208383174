@@ -9,6 +9,7 @@
     <script type="text/javascript" src="./DB.js"></script>
     <script type="text/javascript" src="./login.js"></script>
     <script type="text/javascript" src="./about.js"></script>
+    <script  type="text/javascript" src="confetti.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <link rel="stylesheet" href="./index.css" />
   </head>
@@ -100,46 +101,46 @@
       <div class="gameTab tabContainer">
         <div class="mainGame">
           <div id="username">
-          <label for="lblUserName">User Name: </label>
-          <input id="lblUserName" type="text" />
+            <label for="lblUserName">User Name: </label>
+            <input id="lblUserName" type="text" />
           </div>
-        <div id="score" class="inlineDiv">
-          <label for="lblScore">Score:</label>
-          <input id="lblScore" type="text" />
-        </div>
-        <div id="time" class="inlineDiv">
-          <label for="lblTime">Time Passed:</label>
-          <input id="lblTime" type="text" />
-        </div>
-        <div id="timeleft" class="inlineDiv">
-          <label for="lblTimeLeft">Time Left:</label>
-          <input id="lblTimeLeft" type="text" />
-        </div>
-        <div id="lives" class="inlineDiv">
-          <label for="lblLives">Lives:</label>
-          <input id="lblLives" type="text" />
-        </div>
-        <div id="game">
-          <div class="canvasContainer inlineDiv" height="600" width="600">
-            <div id="youDied"></div>
-            <canvas id="canvas" height="600" width="600"></canvas>
-            <!-- Size of board -->
+          <div id="score" class="inlineDiv">
+            <label for="lblScore">Score:</label>
+            <input id="lblScore" type="text" />
           </div>
-        </div>
+          <div id="time" class="inlineDiv">
+            <label for="lblTime">Time Passed:</label>
+            <input id="lblTime" type="text" />
+          </div>
+          <div id="timeleft" class="inlineDiv">
+            <label for="lblTimeLeft">Time Left:</label>
+            <input id="lblTimeLeft" type="text" />
+          </div>
+          <div id="lives" class="inlineDiv">
+            <label for="lblLives">Lives:</label>
+            <input id="lblLives" type="text" />
+          </div>
+          <div id="game">
+            <div class="canvasContainer inlineDiv" height="600" width="600">
+              <div id="youDied"></div>
+              <canvas id="canvas" height="600" width="600"></canvas>
+              <!-- Size of board -->
+            </div>
+          </div>
         <div class="displaySetting">
           <h2>Settings</h2>
           <div class="setting">
-        <label for="numberOfBalls">number of balls:</label>
-        <span id="numberOfBalls"></span>
-      </div>
-      <div class="setting">
-        <label for="colorFor5">color for 5:</label>
-        <span id="colorFor5" type="text"></span>
-        <label for="colorFor15">color for 15:</label>
-        <span id="colorFor15" type="text"></span>
-        <label for="colorFor25">color for 25:</label>
-        <span id="colorFor25" type="text"></span>
-      </div>
+          <label for="numberOfBalls">number of balls:</label>
+          <span id="numberOfBalls"></span>
+        </div>
+        <div class="setting">
+          <label for="colorFor5">color for 5:</label>
+          <span id="colorFor5" type="text"></span>
+          <label for="colorFor15">color for 15:</label>
+          <span id="colorFor15" type="text"></span>
+          <label for="colorFor25">color for 25:</label>
+          <span id="colorFor25" type="text"></span>
+        </div>
         <div class="setting">
         <label for="gameDurition">game durition:</label>
         <span id="gameDurition" type="text"></span>
@@ -167,7 +168,7 @@
         </div>
       </div>
 
-        <button type="button" class="stopGameButton" onclick="finishedGame()">stop game</button>
+        <button type="button" class="stopGameButton" onclick="resumeGame()">Start New Game</button>
 
       </div>
       </div>

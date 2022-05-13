@@ -592,11 +592,34 @@ function UpdatePosition() {
         score + " points" + "\n" + "You are better than " + score + " points!"
       );
     } else {
-      window.alert(score + " points" + "\n" + "Winner!!!");
+      const start_confetti = () => {
+        setTimeout(function() {
+            confetti.start()
+        }, 100); // 1000 is time that after 1 second start the confetti ( 1000 = 1 sec)
+    };
+
+    //  for stopping the confetti 
+
+    const stop_confetti = () => {
+        setTimeout(function() {
+            confetti.stop()
+        }, 5000); // 5000 is time that after 5 second stop the confetti ( 5000 = 5 sec)
+    };
+    start_confetti();
+    stop_confetti();
+    window.onload = setTimeout(function(){
+      alert(score + " points" + "\n" + "Winner!!!");
+  }, 5000);
+    // window.alert(score + " points" + "\n" + "Winner!!!");
     }
-    if (window.confirm("Start New Game?")) {
-      goToSettings();
-    }
+    window.onload = setTimeout(function(){
+      if (window.confirm("Start New Game?")) {
+        goToSettings();
+      }
+  }, 9000);
+    // if (window.confirm("Start New Game?")) {
+    //   goToSettings();
+    // }
   } else {
     Draw();
   }
@@ -934,4 +957,13 @@ function startInterval() {
   moving_medicine_interval = setInterval(is_moving_medicine, 600);
   special_candy_interval = setInterval(update_special_candy, 3000);
   enemy_interval = setInterval(updateEnemyPosition, 800);
+}
+
+
+// start new game button
+function resumeGame(){
+  if (window.confirm("Are you sure you want to start a new game? \n(by clicking OK current game will end)")) {
+    finishedGame();
+    goToSettings();
+  }
 }
