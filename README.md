@@ -8,6 +8,7 @@
   ## Description
 
 In this project we created a Pacman game.
+
 This game supports all of the basic demands that were mentioned in the HW instructions, and more as specified below.
 
 ## Additional functionality:
