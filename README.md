@@ -19,6 +19,8 @@ This game supports all of the basic demands that were mentioned in the HW instru
 
 **-** Red monster that reduces touble lives.
 
+**-** An "extra time" candy, that adds *** extra time to current game. 
+
 **-** Confetti after winning the game.
 
 **-** "Start new game" button to start new game and ending the current one.
