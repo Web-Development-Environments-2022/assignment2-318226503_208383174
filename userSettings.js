@@ -13,7 +13,6 @@ function checkSettings() {
   if (keySet.size != 4) {
     window.alert("please choose different key to each move.");
   }
-
   // check number of balls:
   else if (
     document.getElementById("num_of_food").value < 50 ||
@@ -48,6 +47,7 @@ function startSettings() {
   updateFoodColors();
   updateGameDurition();
   updateMonsters();
+  updateUserSettings();
   goToGame();
 }
 
@@ -61,6 +61,8 @@ function update_upKey() {
 
 function update_downKey() {
   $(document).keydown(function (event) {
+    debugger;
+    console.log(1);
     document.getElementById("downKey").value = event.key;
     user_downKey = event.key;
     $(document).unbind();
@@ -89,10 +91,13 @@ function update_allKeys() {
   console.log("left key is " + user_leftKey);
   console.log("right key is " + user_rightKey);
   upKey.value = user_upKey;
+  debugger;
+  console.log(2);
   downKey.value = user_downKey;
   leftKey.value = user_leftKey;
   rightKey.value = user_rightKey;
 }
+
 function updateFoodNum() {
   // document.getElementById('num_of_food').value='';
   food_remain = document.getElementById("num_of_food").value;
@@ -111,13 +116,9 @@ function updateFoodColors() {
 
 function randomSettings() {
   // keys
-  document.getElementById("upKey").value = "ArrowUp";
   user_upKey = "ArrowUp";
-  document.getElementById("downKey").value = "ArrowDown";
   user_downKey = "ArrowDown";
-  document.getElementById("leftKey").value = "ArrowLeft";
   user_leftKey = "ArrowLeft";
-  document.getElementById("rightKey").value = "ArrowRight";
   user_rightKey = "ArrowRight";
   // num of food
   document.getElementById("num_of_food").value = Math.floor(
@@ -130,6 +131,7 @@ function randomSettings() {
     Math.random() * 4 + 1
   );
 }
+
 function updateGameDurition() {
   user_game_durition = document.getElementById("game_durition").value;
   gameDurition.innerText = user_game_durition;
@@ -138,4 +140,11 @@ function updateGameDurition() {
 function updateMonsters() {
   monsters_remain = document.getElementById("num_monsters").value;
   numOfMonsters.innerText = monsters_remain;
+}
+
+function updateUserSettings() {
+  document.getElementById("upKey").value = "ArrowUp";
+  document.getElementById("downKey").value = "ArrowDown";
+  document.getElementById("leftKey").value = "ArrowLeft";
+  document.getElementById("rightKey").value = "ArrowRight";
 }
