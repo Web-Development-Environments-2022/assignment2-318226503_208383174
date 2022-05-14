@@ -13,9 +13,13 @@ This game supports all of the basic demands that were mentioned in the HW instru
 ## Additional functionality:
 
 **-** Special candies that appears randomly and adds speacial extra point by eating them.
+
 **-** An "extra life" candy, that adds 1 more to the total lives.
+
 **-** Red monster that reduces touble lives.
+
 **-** Confetti after winning the game.
+
 **-** "Start new game" button to start new game and ending the current one.
 
 
