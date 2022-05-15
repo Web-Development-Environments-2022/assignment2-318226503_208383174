@@ -127,6 +127,18 @@ function StartGame() {
   context = canvas.getContext("2d");
   music = new Audio("resources/music/pacman_remix.ogg");
   music.play();
+  if (typeof music.loop == 'boolean')
+{
+  music.loop = true;
+}
+else
+{
+  music.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    }, false);
+}
+music.play();
   Start();
 }
 
@@ -611,12 +623,13 @@ function UpdatePosition() {
         alert(score + " points" + "\n" + "Winner!!!");
       }, 5000);
       // window.alert(score + " points" + "\n" + "Winner!!!");
+      window.onload = setTimeout(function () {
+        if (window.confirm("Start New Game?")) {
+          goToSettings();
+        }
+      }, 7000);
     }
-    window.onload = setTimeout(function () {
-      if (window.confirm("Start New Game?")) {
-        goToSettings();
-      }
-    }, 9000);
+
     // if (window.confirm("Start New Game?")) {
     //   goToSettings();
     // }
