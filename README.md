@@ -13,21 +13,20 @@ This game supports all of the basic demands that were mentioned in the HW instru
 
 ## Additional functionality:
 
-**-** Special candies that appears randomly and adds speacial extra point by eating them.
+**-** Special candies that appears randomly and adds extra point by eating them.
 
 **-** An "extra life" candy, that adds 1 more to the total lives.
 
-**-** Red monster that reduces touble lives.
+**-** "Angry" red monster that reduces 2 lives when you get eaten by it.
 
-**-** An "extra time" candy, that adds *** extra time to current game. 
+**-** An "extra time" candy, that adds 10 seconds extra time to current game. 
 
-**-** Confetti after winning the game.
+**-** Confetti and clapping sounds after winning the game.
+
+**-** Error sounds after getting eaten by a monster.
 
 **-** "Start new game" button to start new game and ending the current one.
 
-**-** Clapping sounds after winning.
-
-**-** Error sounds after getting eaten by a monster.
 
 
 
