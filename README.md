@@ -25,4 +25,9 @@ This game supports all of the basic demands that were mentioned in the HW instru
 
 **-** "Start new game" button to start new game and ending the current one.
 
+**-** Clapping sounds after winning.
+
+**-** Error sounds after getting eaten by a monster.
+
+
 
