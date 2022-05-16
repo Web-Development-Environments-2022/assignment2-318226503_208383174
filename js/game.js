@@ -1,3 +1,4 @@
+// setting global variables
 var context;
 var shape = new Object();
 var board;
@@ -12,16 +13,18 @@ var moving_50_interval;
 var moving_medicine_interval;
 var special_candy_interval;
 var pac_direction;
-var moving_50 = new Object();
-var special_candy = new Object();
-var special_candy_2 = new Object();
-var medicine = new Object();
 var monsters_start_locations;
 var monsters_last_movment;
 const num_of_rows = 15;
 const num_of_cols = 15;
 var current_gameUser;
 var backgroundMusic;
+var food_remain;
+
+var moving_50 = new Object();
+var special_candy = new Object();
+var special_candy_2 = new Object();
+var medicine = new Object();
 
 // paths
 special_candy_path = "resources/candy.png";
@@ -50,6 +53,8 @@ var orange_left_path = "resources/ghosts/orange left.png";
 var orange_right_path = "resources/ghosts/orange right.png";
 var orange_up_path = "resources/ghosts/orange up.png";
 
+var looserMusicPath = "resources/music/loser.m4a";
+
 const MONSTER_START = 200;
 // dict mapping values to paths
 var ghostPaths = {
@@ -74,7 +79,7 @@ var ghostPaths = {
   233: orange_left_path,
 };
 
-//nums in board
+// nums in board
 const num_5_points = 80;
 const num_15_points = 81;
 const num_25_points = 82;
@@ -112,8 +117,6 @@ var user_downKey = "ArrowDown";
 var user_leftKey = "ArrowLeft";
 var user_rightKey = "ArrowRight";
 
-var food_remain;
-
 // color of food balls
 var user_color_5p;
 var user_color_15p;
@@ -123,8 +126,10 @@ var user_color_25p;
 var user_game_durition;
 var time_remain;
 
+// main function for starting the game
 function StartGame() {
   context = canvas.getContext("2d");
+  // background music
   backgroundMusic = new Audio("resources/music/backgroundMusic.mp3");
   backgroundMusic.play();
   if (typeof backgroundMusic.loop == "boolean") {
@@ -144,6 +149,7 @@ function StartGame() {
 }
 
 function Start() {
+  // initializing
   board = new Array();
   score = 0;
   lives = 5;
@@ -154,7 +160,6 @@ function Start() {
   time_elapsed = 0;
   time_remain = user_game_durition - time_elapsed;
 
-  var pacman_remain = 1;
   var remain_5p = Math.floor(0.6 * food_remain);
   var remain_15p = Math.floor(0.3 * food_remain);
   var remain_25p = Math.floor(0.1 * food_remain);
@@ -188,6 +193,7 @@ function Start() {
     monsters_locations[i] = [x, y];
   }
 
+  // setting the board
   for (var i = 0; i < num_of_rows; i++) {
     for (var j = 0; j < num_of_cols; j++) {
       if (board[i][j] == 0) {
@@ -258,6 +264,7 @@ function Start() {
     }
   }
 
+  // setting the food
   var emptyCell;
   while (remain_5p > 0) {
     emptyCell = findRandomEmptyCell(board);
@@ -277,13 +284,14 @@ function Start() {
     remain_25p--;
     food_remain--;
   }
+
   // put pacman
   var emptyCell_pac = findRandomEmptyCell(board);
   board[emptyCell_pac[0]][emptyCell_pac[1]] = 2;
   shape.i = emptyCell_pac[0];
   shape.j = emptyCell_pac[1];
-  pacman_remain--;
 
+  // keys listener
   keysDown = {};
   addEventListener(
     "keydown",
@@ -299,14 +307,17 @@ function Start() {
     },
     false
   );
+
   // candy 1
   var emptyCell_2 = findRandomEmptyCell(board);
   special_candy.i = emptyCell_2[0];
   special_candy.j = emptyCell_2[1];
+
   // candy 2
   var emptyCell_3 = findRandomEmptyCell(board);
   special_candy_2.i = emptyCell_3[0];
   special_candy_2.j = emptyCell_3[1];
+
   // extra time
   var emptyCell = findRandomEmptyCell(board);
   board[emptyCell[0]][emptyCell[1]] = num_extra_time;
@@ -314,6 +325,7 @@ function Start() {
   startInterval();
 }
 
+// finding random empty cell
 function findRandomEmptyCell(board) {
   var i = Math.floor(Math.random() * (num_of_rows - 1) + 1);
   var j = Math.floor(Math.random() * (num_of_rows - 1) + 1);
@@ -324,6 +336,7 @@ function findRandomEmptyCell(board) {
   return [i, j];
 }
 
+// getting the key the user pressed on
 function GetKeyPressed() {
   if (keysDown[user_upKey]) {
     //up
@@ -347,6 +360,7 @@ function GetKeyPressed() {
   }
 }
 
+// drawing the board and the images
 function Draw() {
   canvas.width = canvas.width; //clean board
   lblScore.value = score;
@@ -458,16 +472,19 @@ function Draw() {
 
       // - food -
       else if (board[i][j] == num_5_points) {
+        // 5 points food
         context.beginPath();
         context.arc(center.x, center.y, food_size * 0.85, 0, 2 * Math.PI); // circle
         context.fillStyle = user_color_5p;
         context.fill();
       } else if (board[i][j] == num_15_points) {
+        // 15 points food
         context.beginPath();
         context.arc(center.x, center.y, food_size * 1.2, 0, 2 * Math.PI); // circle
         context.fillStyle = user_color_15p;
         context.fill();
       } else if (board[i][j] == num_25_points) {
+        // 25 points food
         context.beginPath();
         context.arc(center.x, center.y, food_size * 1.5, 0, 2 * Math.PI); // circle
         context.fillStyle = user_color_25p;
@@ -481,11 +498,11 @@ function Draw() {
           cellSizePx * 0.8,
           cellSizePx * 0.8
         );
+        // board
         color = "black";
         context.fillStyle = color;
         context.fill();
         context.strokeStyle = "orange";
-        // context.strokeStyle = "#1919A6";
         context.strokeRect(
           center.x - cellSizePx / 2,
           center.y - cellSizePx / 2,
@@ -511,12 +528,6 @@ function Draw() {
       }
     }
   }
-}
-
-function addNumber(size, color, number, center) {
-  context.font = size;
-  context.fillStyle = color;
-  context.fillText(number, center.x, center.y);
 }
 
 // generic function to draw character from image
@@ -611,32 +622,24 @@ function UpdatePosition() {
         }, 100); // 1000 is time that after 1 second start the confetti ( 1000 = 1 sec)
       };
 
-      //  for stopping the confetti
-
+      // stopping the confetti
       const stop_confetti = () => {
         setTimeout(function () {
           confetti.stop();
         }, 5000); // 5000 is time that after 5 second stop the confetti ( 5000 = 5 sec)
       };
-      // backgroundMusic.pause();
-      // var winnerMusic = new Audio("resources/music/winnder.mp3");
-      // winnerMusic.play();
       start_confetti();
       stop_confetti();
       window.onload = setTimeout(function () {
         alert(score + " points" + "\n" + "Winner!!!");
       }, 5000);
-      // window.alert(score + " points" + "\n" + "Winner!!!");
+
       window.onload = setTimeout(function () {
         if (window.confirm("Start New Game?")) {
           goToSettings();
         }
       }, 7000);
     }
-
-    // if (window.confirm("Start New Game?")) {
-    //   goToSettings();
-    // }
   } else {
     Draw();
   }
@@ -671,9 +674,9 @@ function moveElement(element, num) {
   board[element.i][element.j] = num;
 }
 
+// checking if a move is possible
 function available_move(x, y) {
   var possiable_moves = new Array();
-
   if (y > 0) {
     if (board[x][y - 1] == 0) {
       possiable_moves.push([x, y - 1]);
@@ -707,6 +710,7 @@ function is_moving_50() {
   moveElement(moving_50, num_50_points);
 }
 
+// updating the special candies location
 function update_special_candy() {
   var random1 = Math.random();
   var random2 = Math.random();
@@ -718,8 +722,6 @@ function update_special_candy() {
 
 function updateScpecialCandyLocation(random, num, candy) {
   board[candy.i][candy.j] = 0;
-  // candy.i = -1;
-  // candy.j = -1;
   if (random > 0.7) {
     var empty_cell_for_special_candy = findRandomEmptyCell(board);
     candy.i = empty_cell_for_special_candy[0];
@@ -728,7 +730,7 @@ function updateScpecialCandyLocation(random, num, candy) {
   }
 }
 
-// update enemy position
+// update the enemies position
 function updateEnemyPosition() {
   for (var i = 0; i < monsters_remain; i++) {
     var location = monsters_locations[i];
@@ -809,6 +811,7 @@ function findAvaliableway(x, y, i) {
   }
 }
 
+// trying moving in the given direction
 function tryDirection(direction, new_location, i) {
   var monster_movment = MONSTER_START + i * 10 + direction;
   var new_x = new_location[0];
@@ -902,10 +905,8 @@ function move_monster(new_location, i, monster_movment) {
 // packman eaten by monster
 function eatenByMonster(isAngry) {
   backgroundMusic.pause();
-  var looserMusic = new Audio("resources/music/loser.m4a");
-  // looserMusic = new Audio("resources/music/looser.mp3");
+  var looserMusic = new Audio(looserMusicPath);
   looserMusic.play();
-
   stopInterval();
   if (isAngry) {
     lives -= 2;
@@ -925,7 +926,7 @@ function eatenByMonster(isAngry) {
   }
 }
 
-// TODO- maybe
+// when the game is finished
 function finishedGame() {
   if (backgroundMusic != undefined) {
     backgroundMusic.pause();
@@ -934,6 +935,7 @@ function finishedGame() {
   stopInterval();
 }
 
+// restarting the game after packman got eaten and the game continues
 function restart() {
   // restart packman
   var emptyCell = findRandomEmptyCell(board);
