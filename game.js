@@ -587,7 +587,7 @@ function UpdatePosition() {
     clearInterval(special_candy_2);
   } else if (board[shape.i][shape.j] == num_extra_time) {
     // special candy points
-    user_game_durition = Math.round(Number(user_game_durition) + Number(30));
+    user_game_durition = Math.round(Number(user_game_durition) + Number(10));
   } else if (board[shape.i][shape.j] == num_medicine) {
     // medicine
     lives += 1;
