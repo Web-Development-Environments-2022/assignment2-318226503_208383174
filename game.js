@@ -619,8 +619,8 @@ function UpdatePosition() {
         }, 5000); // 5000 is time that after 5 second stop the confetti ( 5000 = 5 sec)
       };
       // backgroundMusic.pause();
-      var winnerMusic = new Audio("resources/music/winnder.mp3");
-      winnerMusic.play();
+      // var winnerMusic = new Audio("resources/music/winnder.mp3");
+      // winnerMusic.play();
       start_confetti();
       stop_confetti();
       window.onload = setTimeout(function () {

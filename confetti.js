@@ -105,6 +105,8 @@ var confetti = {
   }
 
   function startConfetti(timeout, min, max) {
+    var winnerMusic = new Audio("resources/music/winner.mp3");
+    winnerMusic.play();
     var width = confetti.width;
     var height = window.innerHeight;
     window.requestAnimationFrame = (function () {

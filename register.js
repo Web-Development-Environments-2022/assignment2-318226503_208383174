@@ -22,6 +22,7 @@ $(document).ready(function () {
     rules: {
       userName: {
         required: true,
+        userNameCheck: true,
       },
       password: {
         required: true,
@@ -44,6 +45,7 @@ $(document).ready(function () {
     messages: {
       userName: {
         required: "User Name is required",
+        userNameCheck: "User Name is taken."
       },
       password: {
         required: "Password is required",
@@ -104,6 +106,16 @@ $(document).ready(function () {
     var mail_regex =
       /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return mail_regex.test(value);
+  });
+
+  $.validator.addMethod("userNameCheck", function (value) {
+    for (let i = 0; i < allUsers.length; i++) {
+      if (value == allUsers[i].userName) {
+        // user name exist
+        return false;
+      }
+    }
+    return true;
   });
 });
 
