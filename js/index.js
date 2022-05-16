@@ -42,13 +42,6 @@ function goToAbout() {
 function goToSettings() {
   const settingsTab = $(".settingsTab");
   switchToTab(settingsTab);
-  // startSettings();
-}
-
-function goToStartGame() {
-  // const startGameTab = $(".startGameTab");
-  // switchToTab(startGameTab);
-  // startSettings();
 }
 
 function switchToTab(newTab) {
@@ -59,7 +52,6 @@ function switchToTab(newTab) {
   previousTab = null;
   $(".tabContainer").removeClass("activeTab");
   $(newTab).addClass("activeTab");
-  // stopInterval();
 }
 
 function switchToPreviousTab() {

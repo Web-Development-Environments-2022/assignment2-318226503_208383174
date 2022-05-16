@@ -7,14 +7,6 @@ class gameUser {
     this.email = email;
     this.bDay = bDay;
   }
-
-  // get getUserName(){
-  //     return this.userName;
-  // }
-
-  // get getPassword(){
-  //     return this.password;
-  // }
 }
 
 $(document).ready(function () {
@@ -45,7 +37,7 @@ $(document).ready(function () {
     messages: {
       userName: {
         required: "User Name is required",
-        userNameCheck: "User Name is taken."
+        userNameCheck: "User Name is taken.",
       },
       password: {
         required: "Password is required",
@@ -76,20 +68,6 @@ $(document).ready(function () {
       );
     },
   });
-
-  // https://stackoverflow.com/questions/16556968/how-to-check-if-text-fields-are-empty-on-form-submit-using-jquery
-  // $('#register_info').submit(function () {
-
-  //     var username = $.trim($('#user_name_input').val());
-  // console.log("username is: "+username);
-  //     // Check if empty of not
-  //     if (username  === '') {
-  //         alert('Text-field is empty.');
-  //         return false;
-  //     }
-  // });
-
-  //https://stackoverflow.com/questions/18746234/jquery-validate-plugin-password-check-minimum-requirements-regex
 
   $.validator.addMethod("password_check", function (value) {
     return (

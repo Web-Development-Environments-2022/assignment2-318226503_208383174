@@ -99,10 +99,8 @@ function update_allKeys() {
 }
 
 function updateFoodNum() {
-  // document.getElementById('num_of_food').value='';
   food_remain = document.getElementById("num_of_food").value;
   numberOfBalls.innerText = food_remain;
-  // console.log("number of food is: "+food_remain);
 }
 
 function updateFoodColors() {

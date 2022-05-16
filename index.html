@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <!-- <Style type='text/css' >body{background-color:rgb(0,0,0);background-image:url(http://www.zingerbugimages.com/backgrounds/multi_colored_stars2.gif);background-position:top left;background-repeat:repeat;background-attachment:fixed;}</Style> -->
   <head>
-
     <meta charset="UTF-8">
     <meta name="description" content="packman game">
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Shahaf Erez and Chen Mordehai">
     <title>Packman Game</title>
 
-    <script src="./jquery-3.4.1.slim.min.js"></script>
+    <script src="./js/jquery-3.4.1.slim.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="./game.js"></script>
-    <script type="text/javascript" src="./index.js"></script>
-    <script type="text/javascript" src="./userSettings.js"></script>
-    <script type="text/javascript" src="./register.js"></script>
-    <script type="text/javascript" src="./DB.js"></script>
-    <script type="text/javascript" src="./login.js"></script>
-    <script type="text/javascript" src="./about.js"></script>
-    <script  type="text/javascript" src="confetti.js"></script>
+    <script type="text/javascript" src="./js/game.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
+    <script type="text/javascript" src="./js/userSettings.js"></script>
+    <script type="text/javascript" src="./js/register.js"></script>
+    <script type="text/javascript" src="./js/DB.js"></script>
+    <script type="text/javascript" src="./js/login.js"></script>
+    <script type="text/javascript" src="./js/about.js"></script>
+    <script  type="text/javascript" src="/js/confetti.js"></script>
     <link rel="shortcut icon" href="resources/topLogo.png">
     <link rel="stylesheet" href="./index.css" />
   </head>
+  
   <body>
     <div class="main">
       <div class="logoAndMenu">
@@ -137,12 +136,13 @@
             </div>
           </div>
           <button type="button" class="stopGameButton" onclick="resumeGame()">Start New Game</button>
-        <div class="displaySetting">
+          <div class="displaySetting">
           <h2>Settings</h2>
           <div class="setting">
           <label for="numberOfBalls">number of balls:</label>
           <span id="numberOfBalls"></span>
         </div>
+        
         <div class="setting">
           <label for="colorFor5">color for 5:</label>
           <span id="colorFor5" type="text"></span>
@@ -160,7 +160,6 @@
         <span id="numOfMonsters" type="text"></span>
       </div>
       <div class="setting">
-
         <label for="upKey">key to move up:</label>
         <input id="upKey" type="text" />
         </div>
@@ -179,6 +178,7 @@
       </div>
       </div>
       </div>
+      
       <div class="aboutTab tabContainer">
         <div id="myModal" class="modal">
           <div class="modal-content">
@@ -197,12 +197,12 @@
               <b>•</b> Learning how to work with javascript and jQuery<br>
               <b>•</b> Make all design elements work together in the different tabs<br>
               <b>•</b> Merging our code together <br>
-
             </p>
             <p> </p>
           </div>
         </div>
       </div>
+      
       <div class="settingsTab tabContainer">
         <h1>Settings</h1>
         <div class="testbox">
@@ -225,7 +225,6 @@
             <div class="choceColor">
             <label>5 points:</label>
             <select class="colorSelection" id="user_color_5p_check" >
-              <!-- <option disabled selected value>- 5 - </option> -->
               <option ty value="pink" style="color: pink;"><b>pink</b></option>
               <option value="orange" style="color: orange;"><b>orange</b></option>
               <option value="green" style="color: green;"><b>green</b></option>
@@ -237,7 +236,6 @@
           <div class="choceColor">            
             <label>15 points:</label>
             <select class="colorSelection" id="user_color_15p_check" >
-              <!-- <option disabled selected value> - 15 - </option> -->
               <option ty value="purple" style="color: purple;"><b>purple</b></option>
               <option value="green" style="color: green;"><b>green</b></option>
               <option value="blue" style="color: blue;"><b>blue</b></option>
@@ -249,7 +247,6 @@
             <div class="choceColor">            
             <label>25 points:</label>
             <select class="colorSelection" id="user_color_25p_check" >
-              <!-- <option disabled selected value> - 25 - </option> -->
               <option ty value="orange" style="color: orange;"><b>orange</b></option>
               <option value="pink" style="color: pink;"><b>pink</b></option>
               <option value="green" style="color: green;"><b>green</b></option>
@@ -274,12 +271,12 @@
           <button type="button" onclick="randomSettings()" >choose random settings</button>
         </div>
         <div class="set_settings">
-          <!--change to submit ? -->
           <button type="button" onclick="checkSettings()">Save Settings</button>
         </div>
              </form>
         </div>
       </div>
+      
       <div class="startGameTab tabContainer">
         <div class="testbox">
           <form id="startGame_form">
