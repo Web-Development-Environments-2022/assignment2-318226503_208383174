@@ -2,6 +2,13 @@
 <html>
   <!-- <Style type='text/css' >body{background-color:rgb(0,0,0);background-image:url(http://www.zingerbugimages.com/backgrounds/multi_colored_stars2.gif);background-position:top left;background-repeat:repeat;background-attachment:fixed;}</Style> -->
   <head>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="packman game">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="Shahaf Erez and Chen Mordehai">
+    <title>Packman Game</title>
+
     <script src="./jquery-3.4.1.slim.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script type="text/javascript" src="./game.js"></script>
@@ -13,7 +20,6 @@
     <script type="text/javascript" src="./about.js"></script>
     <script  type="text/javascript" src="confetti.js"></script>
     <link rel="shortcut icon" href="resources/topLogo.png">
-<!--     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> -->
     <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
@@ -130,6 +136,7 @@
               <!-- Size of board -->
             </div>
           </div>
+          <button type="button" class="stopGameButton" onclick="resumeGame()">Start New Game</button>
         <div class="displaySetting">
           <h2>Settings</h2>
           <div class="setting">
@@ -170,9 +177,6 @@
         <input id="leftKey" type="text" />
         </div>
       </div>
-
-        <button type="button" class="stopGameButton" onclick="resumeGame()">Start New Game</button>
-
       </div>
       </div>
       <div class="aboutTab tabContainer">
@@ -292,7 +296,8 @@
       </div>
     </content>
     <footer>
-      ** © All rights reserved to Shahaf Erez and Chen Mordehai, Web Development Enviourments, 2022  **
+      <div class="email"><a href="mailto:shahaf30@gmail.com"><img src="resources/5.png" width=40px/></a><a href="mailto:mordeche@post.bgu.ac.il "><img src="resources/6.png" width=40px/></a></div>
+      <p class="copyright">Shahaf Erez and Chen Mordehai © 2022</p>
     </footer>
   </div>
   </body>
