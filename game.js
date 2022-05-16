@@ -21,7 +21,7 @@ var monsters_last_movment;
 const num_of_rows = 15;
 const num_of_cols = 15;
 var current_gameUser;
-var music;
+var backgroundMusic;
 
 // paths
 special_candy_path = "resources/candy.png";
@@ -125,20 +125,21 @@ var time_remain;
 
 function StartGame() {
   context = canvas.getContext("2d");
-  music = new Audio("resources/music/pacman_remix.ogg");
-  music.play();
-  if (typeof music.loop == 'boolean')
-{
-  music.loop = true;
-}
-else
-{
-  music.addEventListener('ended', function() {
+  backgroundMusic = new Audio("resources/music/backgroundMusic.mp3");
+  backgroundMusic.play();
+  if (typeof backgroundMusic.loop == "boolean") {
+    backgroundMusic.loop = true;
+  } else {
+    backgroundMusic.addEventListener(
+      "ended",
+      function () {
         this.currentTime = 0;
         this.play();
-    }, false);
-}
-music.play();
+      },
+      false
+    );
+  }
+  backgroundMusic.play();
   Start();
 }
 
@@ -617,6 +618,9 @@ function UpdatePosition() {
           confetti.stop();
         }, 5000); // 5000 is time that after 5 second stop the confetti ( 5000 = 5 sec)
       };
+      // backgroundMusic.pause();
+      var winnerMusic = new Audio("resources/music/winnder.mp3");
+      winnerMusic.play();
       start_confetti();
       stop_confetti();
       window.onload = setTimeout(function () {
@@ -897,6 +901,11 @@ function move_monster(new_location, i, monster_movment) {
 
 // packman eaten by monster
 function eatenByMonster(isAngry) {
+  backgroundMusic.pause();
+  var looserMusic = new Audio("resources/music/loser.m4a");
+  // looserMusic = new Audio("resources/music/looser.mp3");
+  looserMusic.play();
+
   stopInterval();
   if (isAngry) {
     lives -= 2;
@@ -918,8 +927,10 @@ function eatenByMonster(isAngry) {
 
 // TODO- maybe
 function finishedGame() {
-  music.pause();
-  music.currentTime = 0;
+  if (backgroundMusic != undefined) {
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
+  }
   stopInterval();
 }
 
@@ -952,6 +963,8 @@ function restart() {
     startInterval();
     deathDiv.removeClass("active");
   }, 2000);
+
+  backgroundMusic.play();
 }
 
 // stopping the interval

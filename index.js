@@ -52,9 +52,14 @@ function goToStartGame() {
 }
 
 function switchToTab(newTab) {
+  previousTab = $(".tabContainer.activeTab");
+  if (previousTab) {
+    finishedGame();
+  }
+  previousTab = null;
   $(".tabContainer").removeClass("activeTab");
   $(newTab).addClass("activeTab");
-  stopInterval();
+  // stopInterval();
 }
 
 function switchToPreviousTab() {
