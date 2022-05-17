@@ -1,9 +1,8 @@
 class gameUser {
-  constructor(userName, password, firstName, lastName, email, bDay) {
+  constructor(userName, password, fullName, email, bDay) {
     this.userName = userName;
     this.password = password;
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.fullName = fullName;
     this.email = email;
     this.bDay = bDay;
   }
@@ -21,11 +20,7 @@ $(document).ready(function () {
         minlength: 6,
         password_check: true,
       },
-      firstName: {
-        required: true,
-        letters_check: true,
-      },
-      lastName: {
+      fullName: {
         required: true,
         letters_check: true,
       },
@@ -42,15 +37,11 @@ $(document).ready(function () {
       password: {
         required: "Password is required",
         minlength: "Password should be at least {0} characters long",
-        password_check: "Password should include only letters and digits", //TODO: need to explain better
+        password_check: "Password should include only letters and digits", 
       },
-      firstName: {
-        required: "First Name is required",
-        letters_check: "First Name should include only letters",
-      },
-      lastName: {
-        required: "Last Name is required",
-        letters_check: "Last Name should include only letters",
+      fullName: {
+        required: "Full Name is required",
+        letters_check: "Full Name should include only letters",
       },
       email: {
         required: "E-Mail is required",
@@ -62,7 +53,6 @@ $(document).ready(function () {
         document.getElementById("user_name_input").value,
         document.getElementById("password_input").value,
         document.getElementById("fName_input").value,
-        document.getElementById("lName_input").value,
         document.getElementById("eMail_input").value,
         document.getElementById("bDate_input").value
       );
@@ -70,14 +60,17 @@ $(document).ready(function () {
   });
 
   $.validator.addMethod("password_check", function (value) {
-    return (
-      /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) && // consists of only these
-      /\d/.test(value)
-    ); // has a digit
+    // return (
+    //   // /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) && // consists of only these
+    //   // /\d/.test(value)
+    // ); // has a digit
+    var passw = /^(?=.*\d)(?=.*[A-Za-z]).{6,100}$/;
+    return(value.match(passw)) 
   });
 
   $.validator.addMethod("letters_check", function (value) {
-    return /^[A-Za-z]+$/i.test(value) || /^[a-zA-Z]+$/i.test(value);
+    // return /^[A-Za-z]+$/i.test(value) || /^[a-zA-Z]+$/i.test(value);
+    return(/^[a-zA-Z]+ [a-zA-Z]+$/.test(value));
   });
 
   $.validator.addMethod("email_check", function (value) {
@@ -98,12 +91,11 @@ $(document).ready(function () {
 });
 
 // adding new user
-function addNewUser(userName, password, firstName, lastName, email, bDay) {
+function addNewUser(userName, password, fullName, email, bDay) {
   var newUser = new gameUser(
     userName,
     password,
-    firstName,
-    lastName,
+    fullName,
     email,
     bDay
   );
