@@ -9,7 +9,7 @@
 
 In this project we created a Pacman game.
 
-This game supports all of the basic demands that were mentioned in the HW instructions, and more as specified below.
+This game supports all the basic demands that were mentioned in the HW instructions, and more as specified below.
 
 ## Additional functionality:
 
