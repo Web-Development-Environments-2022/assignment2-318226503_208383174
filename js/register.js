@@ -37,11 +37,11 @@ $(document).ready(function () {
       password: {
         required: "Password is required",
         minlength: "Password should be at least {0} characters long",
-        password_check: "Password should include only letters and digits", 
+        password_check: "Password should include at least one letter and one digit", 
       },
       fullName: {
         required: "Full Name is required",
-        letters_check: "Full Name should include only letters",
+        letters_check: "Full Name should include only letters in the form: FIRST_NAME LAST_NAME",
       },
       email: {
         required: "E-Mail is required",
