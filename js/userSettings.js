@@ -53,7 +53,7 @@ function startSettings() {
 
 function update_upKey() {
   $(document).keydown(function (event) {
-    document.getElementById("upKey").value = event.key;
+    document.getElementById("upKeySetter").value = event.key;
     user_upKey = event.key;
     $(document).unbind();
   });
@@ -61,9 +61,7 @@ function update_upKey() {
 
 function update_downKey() {
   $(document).keydown(function (event) {
-    debugger;
-    console.log(1);
-    document.getElementById("downKey").value = event.key;
+    document.getElementById("downKeySetter").value = event.key;
     user_downKey = event.key;
     $(document).unbind();
   });
@@ -71,7 +69,7 @@ function update_downKey() {
 
 function update_leftKey() {
   $(document).keydown(function (event) {
-    document.getElementById("leftKey").value = event.key;
+    document.getElementById("leftKeySetter").value = event.key;
     user_leftKey = event.key;
     $(document).unbind();
   });
@@ -79,20 +77,14 @@ function update_leftKey() {
 
 function update_rightKey() {
   $(document).keydown(function (event) {
-    document.getElementById("rightKey").value = event.key;
+    document.getElementById("rightKeySetter").value = event.key;
     user_rightKey = event.key;
     $(document).unbind();
   });
 }
 
 function update_allKeys() {
-  console.log("up key is " + user_upKey);
-  console.log("down key is " + user_downKey);
-  console.log("left key is " + user_leftKey);
-  console.log("right key is " + user_rightKey);
   upKey.value = user_upKey;
-  debugger;
-  console.log(2);
   downKey.value = user_downKey;
   leftKey.value = user_leftKey;
   rightKey.value = user_rightKey;
