@@ -120,6 +120,14 @@ function randomSettings() {
   document.getElementById("num_monsters").value = Math.floor(
     Math.random() * 4 + 1
   );
+  SetSetterButtonsText();
+}
+
+function SetSetterButtonsText() {
+  document.getElementById("upKeySetter").value = user_upKey;
+  document.getElementById("downKeySetter").value = user_downKey;
+  document.getElementById("leftKeySetter").value = user_leftKey;
+  document.getElementById("rightKeySetter").value = user_rightKey;
 }
 
 function updateGameDurition() {
@@ -133,8 +141,8 @@ function updateMonsters() {
 }
 
 function updateUserSettings() {
-  document.getElementById("upKey").value = "ArrowUp";
-  document.getElementById("downKey").value = "ArrowDown";
-  document.getElementById("leftKey").value = "ArrowLeft";
-  document.getElementById("rightKey").value = "ArrowRight";
+  document.getElementById("upKey").value = user_upKey;
+  document.getElementById("downKey").value = user_downKey;
+  document.getElementById("leftKey").value = user_leftKey;
+  document.getElementById("rightKey").value = user_rightKey;
 }
